@@ -1,0 +1,24 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.master.cs" Inherits="Uni.Pages.Site" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title></title>
+    <link rel="stylesheet" href="../Content/Site.css" />
+</head>
+<body>
+    <form id="form1" runat="server">
+    <div id="menu">
+        <a href="Students.aspx">Students</a>
+        <a href="Groups.aspx">Groups</a>
+        <a href="Login.aspx">Login</a>
+    </div>
+    <div>
+        <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+        
+        </asp:ContentPlaceHolder>
+    </div>
+    </form>
+</body>
+</html>

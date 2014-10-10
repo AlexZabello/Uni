@@ -1,0 +1,28 @@
+﻿table {
+    border-collapse: collapse;
+}
+
+table, th, td {
+    border: thin solid black;
+}
+
+th {
+    background-color: gray;
+    text-decoration: solid;
+}
+
+
+#students { /* Левая колонка */
+  float: left; /* Обтекание справа */
+  width: 30%; /* Ширина колонки */
+}
+#buttons {
+    margin-left: 40px;
+    float:left;
+}
+
+#groupStudent { /* Правая колонка */
+                float:left;
+                margin-left:40px;
+ /* Отступ слева */
+}

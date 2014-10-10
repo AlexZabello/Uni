@@ -1,0 +1,14 @@
+﻿DIV#themes {
+    float: left;
+    width: 8em;
+    padding: .3em;
+}
+
+    DIV#themes A {
+        font: bold 1.1em "Arial Narrow", "Franklin Gothic Medium", Arial;
+        display: block;
+        text-decoration: none;
+        padding: .6em;
+        color: black;
+        border-bottom: 1px solid silver;
+    }
