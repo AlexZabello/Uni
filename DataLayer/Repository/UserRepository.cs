@@ -188,5 +188,32 @@ namespace DataLayer.Repository
                 return null;
             }
         }
+
+        public IEnumerable<UserRole> GetAllUserRole()
+        {//[UserRoleList]
+            try
+            {
+                App.OpenConnection();
+                SqlDataAdapter adapter = App.CreateAdapter("dbo.UserRoleList");
+                DataTable table = new DataTable();
+                adapter.Fill(table);
+                List<UserRole> uList = new List<UserRole>();
+                foreach (DataRow row in table.Rows)
+                {
+                    UserRole u = new UserRole();
+                    u.UserRoleId = row.Field<int>("UserRoleId");
+                    u.Name = row.Field<string>("Name");
+                    uList.Add(u);
+                }
+                App.CloseConnection();
+                return uList;
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
+        
     }
 }

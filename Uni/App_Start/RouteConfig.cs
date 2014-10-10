@@ -10,9 +10,9 @@ namespace Uni.App_Start
     {
         public static void RegisterRoutes(RouteCollection routes)
         {
-            routes.MapPageRoute("admin", "admin", "~/Pages/Admin/Default.aspx");
-            routes.MapPageRoute("teacher", "teacher", "~/Pages/Teacher/Default.aspx");
-            routes.MapPageRoute("student", "student", "~/Pages/Student/Default.aspx");
+            routes.MapPageRoute("admin", "admin", "~/Pages/Admin/Default.aspx", true);
+            routes.MapPageRoute("teacher", "teacher", "~/Pages/Teacher/AssignStudent.aspx", true);
+            routes.MapPageRoute("student", "student", "~/Pages/Students.aspx");
             routes.MapPageRoute(null, "admin/student", "~/Pages/Admin/Student.aspx");
         }
     }

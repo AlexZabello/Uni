@@ -7,8 +7,13 @@
     <title></title>
 </head>
 <body>
+    <div class="details">The request is authenticated: <%: GetRequestStatus() %></div>
+    <div class="details">The current user is: <%: GetUser() %></div>
+
     <form runat="server">
         <asp:ValidationSummary runat="server" DisplayMode="SingleParagraph" />
+
+
 
         <div class="loginContainer">
             <div>
@@ -19,7 +24,7 @@
                 <label for="password">Password:</label>
                 <input type="password" name="password" />
             </div>
-            <button type="submit">Log In</button>
+            <button name="action" value="login" type="submit">Log In</button>
         </div>
     </form>
 </body>

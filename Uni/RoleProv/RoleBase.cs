@@ -7,8 +7,9 @@ using System.Linq;
 using System.Web;
 using System.Web.Configuration;
 using System.Web.Security;
+using Uni.Helpers;
 
-namespace Uni.Role
+namespace Uni.RoleProv
 {
     public class RoleBase : RoleProvider
     {
@@ -48,16 +49,27 @@ namespace Uni.Role
 
         public override string[] GetAllRoles()
         {
-            throw new NotImplementedException();
+            App app = DataHelper.GetApp();
+            UserRepository rep = new UserRepository();
+            rep.App = app;
+            List<UserRole> list = rep.GetAllUserRole().ToList();
+            app.CloseConnection();
+            string[] roles = new string[list.Count()];
+            int count = list.Count;
+            for (int i = 0; i < list.Count; i++)
+            {
+                roles[i] = list[i].Name;
+            }
+            return roles;
         }
 
         public override string[] GetRolesForUser(string username)
         {
-            App app = new App(connectionString);
+            App app = DataHelper.GetApp();
             UserRepository rep = new UserRepository();
             rep.App = app;
             UserRole role = rep.GetUserRole(new User { Login = username });
-
+            app.CloseConnection();
             return new string[] { role.Name };
         }
 

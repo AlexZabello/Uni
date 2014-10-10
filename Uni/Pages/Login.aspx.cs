@@ -18,31 +18,59 @@ namespace Uni.Pages
         {
             if (IsPostBack)
             {
-                string name = Request.Form["name"];
-                string password = Request.Form["password"];
-                if (name != string.Empty && password != string.Empty && FormsAuthentication.Authenticate(name, password))
+                string user = Request["name"];
+                string password = Request["password"];
+                string action = Request["action"];
+
+                App app = DataHelper.GetApp();
+                UserRepository rep = new UserRepository();
+                rep.App = app;
+
+
+                if (action == "login" && rep.Check(new User { Login = user, Password = password }))
                 {
-                    
-                    FormsAuthentication.SetAuthCookie(name, false);
-                    Response.Redirect("/Admin"); 
-                    //App app = DataHelper.GetApp();
-                    //UserRepository rep = new UserRepository();
-                    //rep.App = app;
-                    //User user = new DataLayer.Entity.User();
-                    //user.Login = name;
-                    //user.Password = password;
-                    //if (rep.Check(user))
-                    //{
-                    //    UserRole role = rep.GetUserRole(user);
-                    //    Response.Redirect("/" + role.Name);
-                    //}
-                    
+                    FormsAuthentication.RedirectFromLoginPage(user, false);
                 }
                 else
                 {
-                    ModelState.AddModelError("fail", "Login failed. Please try again");
+                    FormsAuthentication.SignOut();
+                    Response.Redirect(Request.Path);
                 }
+                
+
+                //if (name != string.Empty && password != string.Empty && FormsAuthentication.Authenticate(name, password))
+                //{
+                    
+                //    FormsAuthentication.SetAuthCookie(name, false);
+                //    Response.Redirect("/Admin"); 
+                //    //App app = DataHelper.GetApp();
+                //    //UserRepository rep = new UserRepository();
+                //    //rep.App = app;
+                //    //User user = new DataLayer.Entity.User();
+                //    //user.Login = name;
+                //    //user.Password = password;
+                //    //if (rep.Check(user))
+                //    //{
+                //    //    UserRole role = rep.GetUserRole(user);
+                //    //    Response.Redirect("/" + role.Name);
+                //    //}
+                    
+                //}
+                //else
+                //{
+                //    ModelState.AddModelError("fail", "Login failed. Please try again");
+                //}
             }
+        }
+
+        protected string GetUser()
+        {
+            return Context.User.Identity.Name;
+        }
+
+        protected bool GetRequestStatus()
+        {
+            return Request.IsAuthenticated;
         }
     }
 }
