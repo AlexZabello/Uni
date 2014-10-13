@@ -26,7 +26,12 @@ namespace DataLayer.Repository
                     User u = new User();
                     u.UserId = row.Field<int>("UserId");
                     u.Login = row.Field<string>("Login");
-                    u.UserRoleId = row.Field<int>("UserRoleId");
+                    u.UserRoleId = row.Field<int?>("UserRoleId");
+                    if (u.UserRole != null)
+                    {
+                        u.UserRole.Name = row.Field<string>("UserRoleName");
+                    }
+                    
                     uList.Add(u);
                 }
                 App.CloseConnection();
@@ -105,8 +110,12 @@ namespace DataLayer.Repository
                 pp.Add(p);
                 p = new SqlParameter("@Login", item.Login);
                 pp.Add(p);
-                p = new SqlParameter("@UserRoleId", item.UserRoleId);
-                pp.Add(p);
+                if (item.UserRoleId != null && item.UserRoleId > 0)
+                {
+                    p = new SqlParameter("@UserRoleId", item.UserRoleId);
+                    pp.Add(p);
+                }
+                
 
                 command.ExecuteNonQuery();
                 App.CloseConnection();
@@ -137,7 +146,7 @@ namespace DataLayer.Repository
                 SqlParameter pId = new SqlParameter("@UserId", item.UserId);
                 pId.Direction = ParameterDirection.Output;
                 pp.Add(pId);
-                SqlParameter pIdRole = new SqlParameter("@UserRoleId", item.UserRoleId);
+                SqlParameter pIdRole = new SqlParameter("@UserRoleId", SqlDbType.Int);
                 pIdRole.Direction = ParameterDirection.Output;
                 pp.Add(pIdRole);
                 command.ExecuteNonQuery();
@@ -155,7 +164,7 @@ namespace DataLayer.Repository
 
                 return true;
             }
-            catch
+            catch (Exception ex)
             {
                 return false;
             }
@@ -173,6 +182,7 @@ namespace DataLayer.Repository
                 pp.Add(p);
                 SqlDataReader reader = command.ExecuteReader();
                 UserRole u = new UserRole();
+                u.Name = "";
                 while (reader.Read())
                 {
                     u.UserRoleId = reader.GetInt32(reader.GetOrdinal("UserRoleId"));

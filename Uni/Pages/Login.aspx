@@ -5,16 +5,17 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title></title>
+    <style>
+        span.error {
+            color: red;
+            border-bottom: solid double red;
+            visibility: collapse;
+        }
+    </style>
 </head>
 <body>
-    <div class="details">The request is authenticated: <%: GetRequestStatus() %></div>
-    <div class="details">The current user is: <%: GetUser() %></div>
-
     <form runat="server">
-        <asp:ValidationSummary runat="server" DisplayMode="SingleParagraph" />
-
-
-
+        <span id="message" class="error" runat="server">Incorrect username or password</span>
         <div class="loginContainer">
             <div>
                 <label for="name">Name:</label>

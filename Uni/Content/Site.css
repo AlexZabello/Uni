@@ -1,4 +1,20 @@
-﻿table {
+﻿div#auth {
+            float:right;
+            width: 40%;
+            text-align: right;
+            font:bold 1em Arial;
+        }
+
+A {
+            display:inline;
+            text-decoration:none;
+            color:black;
+            border-bottom:1px solid blue;
+            font:bold 1em Arial;
+        }
+
+
+table {
     border-collapse: collapse;
 }
 
@@ -12,17 +28,20 @@ th {
 }
 
 
-#students { /* Левая колонка */
-  float: left; /* Обтекание справа */
-  width: 30%; /* Ширина колонки */
-}
-#buttons {
-    margin-left: 40px;
-    float:left;
+#authAction {
+    position:relative;
+    float: right;
 }
 
-#groupStudent { /* Правая колонка */
+#students { 
+  float: left; 
+  width: 30%; 
+}
+
+
+#groupStudent { 
                 float:left;
                 margin-left:40px;
- /* Отступ слева */
+ 
 }
+

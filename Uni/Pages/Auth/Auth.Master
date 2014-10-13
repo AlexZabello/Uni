@@ -1,0 +1,14 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Auth.master.cs" Inherits="Uni.Pages.Admin.Auth" MasterPageFile="~/Pages/Site.Master" %>
+
+<asp:Content ContentPlaceHolderID="ContentPlaceHolderHead" runat="server">
+    <%=GetContent() %>
+</asp:Content>
+
+<asp:Content ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+    <asp:ContentPlaceHolder ID="BodyContent" runat="server">
+
+    </asp:ContentPlaceHolder>
+</asp:Content>
+
+
+

@@ -80,7 +80,11 @@ namespace Uni.RoleProv
 
         public override bool IsUserInRole(string username, string roleName)
         {
-            return GetRolesForUser(username).Contains(roleName);
+            if (roleName != string.Empty)
+            {
+                return GetRolesForUser(username).Contains(roleName);    
+            }
+            return false;
         }
 
         public override void RemoveUsersFromRoles(string[] usernames, string[] roleNames)

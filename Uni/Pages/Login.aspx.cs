@@ -9,6 +9,7 @@ using System.Web.UI.WebControls;
 using Uni.Helpers;
 using DataLayer.Entity;
 using System.Web.Security;
+using System.Web.Routing;
 
 namespace Uni.Pages
 {
@@ -25,17 +26,24 @@ namespace Uni.Pages
                 App app = DataHelper.GetApp();
                 UserRepository rep = new UserRepository();
                 rep.App = app;
-
-
                 if (action == "login" && rep.Check(new User { Login = user, Password = password }))
                 {
                     FormsAuthentication.RedirectFromLoginPage(user, false);
+                    //FormsAuthentication.SetAuthCookie(user, false);
+                    //string url = RouteTable.Routes.GetVirtualPath(null, "auth", new RouteValueDictionary()).VirtualPath;
+                    //Response.Redirect(url);
                 }
                 else
                 {
-                    FormsAuthentication.SignOut();
-                    Response.Redirect(Request.Path);
+                    message.Style["visibility"] = "visible";
                 }
+            }
+            if (Request.IsAuthenticated)
+            {
+                Response.StatusCode = 403;
+                Response.SuppressContent = true;
+                Context.ApplicationInstance.CompleteRequest();
+            }
                 
 
                 //if (name != string.Empty && password != string.Empty && FormsAuthentication.Authenticate(name, password))
@@ -60,7 +68,7 @@ namespace Uni.Pages
                 //{
                 //    ModelState.AddModelError("fail", "Login failed. Please try again");
                 //}
-            }
+            
         }
 
         protected string GetUser()

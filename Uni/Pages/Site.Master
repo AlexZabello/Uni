@@ -5,14 +5,30 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title></title>
-    <link rel="stylesheet" href="../Content/Site.css" />
+    <link rel="stylesheet" href="~/Content/Site.css" type="text/css" />
+    
+
 </head>
 <body>
     <form id="form1" runat="server">
-    <div id="menu">
-        <a href="Students.aspx">Students</a>
-        <a href="Groups.aspx">Groups</a>
-        <a href="Login.aspx">Login</a>
+        <div id="menu">
+
+            <a href=<%=GetStudentsUrl() %>>Students</a>
+            <a href=<%=GetGroupsUrl() %>>Groups</a>
+        
+            <asp:PlaceHolder ID="phHead" runat="server">
+                <%= GetContent() %>
+            </asp:PlaceHolder>
+
+            <asp:ContentPlaceHolder ID="ContentPlaceHolderHead" runat="server">
+                
+            </asp:ContentPlaceHolder>
+
+            <div id="auth">
+                <span id="userName" runat="server"><%: GetUserName() %></span>
+                <button id="regAction" name="authAction" value="reg" type="submit" runat="server">Register</button>
+                <button id="authAction" name="authAction" value="auth" type="submit" runat="server">Log In</button>
+            </div>
     </div>
     <div>
         <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
