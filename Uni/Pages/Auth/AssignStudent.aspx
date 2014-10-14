@@ -1,6 +1,7 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="AssignStudent.aspx.cs" Inherits="Uni.Pages.Teacher.AssignStudent" MasterPageFile="~/Pages/Auth/Auth.Master" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="AssignStudent.aspx.cs" Inherits="Uni.Pages.Teacher.AssignStudent" MasterPageFile="~/Pages/Site.Master" %>
 
-<asp:Content ContentPlaceHolderID="BodyContent" runat="server">
+<asp:Content ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+    <br />
     <div id="students">
         <table>
             <tr>
@@ -14,8 +15,10 @@
                     <td><%# Item.FirstName %></td>
                     <td><%# Item.LastName %></td>
                     <td><%# Item.Subject.Name %></td>
+                    <td><button type="button">Select</button></td>
                 </tr>
             </ItemTemplate>
+            
         </asp:Repeater>
             </table>
     </div>
@@ -43,6 +46,7 @@
                             <td><%# Item.FirstName %></td>
                             <td><%# Item.LastName %></td>
                             <td><%# Item.Subject.Name %></td>
+                                <td><button type="button">Select</button></td>
                         </tr>
                         </ItemTemplate>
                     </asp:Repeater>

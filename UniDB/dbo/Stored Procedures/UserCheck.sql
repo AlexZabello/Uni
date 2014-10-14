@@ -11,7 +11,9 @@ BEGIN
 	SELECT @UserRoleId = u.UserRoleId
 		  ,@UserId = u.UserId
 	FROM [User] as u
-	WHERE u.Login = @Login AND u.Password = @Password
+	WHERE 
+		CAST(u.Login as varbinary(20)) = CAST(@Login as varbinary(20)) 
+		AND CAST(u.Password as varbinary(20)) = CAST(@Password as varbinary(20))
 	
 RETURN
 END

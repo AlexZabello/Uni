@@ -153,6 +153,46 @@ namespace DataLayer.Repository
             }
         }
 
+        public IEnumerable<Group> GetAllForSubject(Subject subj)
+        {
+            try
+            {
+                App.OpenConnection();
+                SqlDataAdapter adapter = App.CreateAdapter("dbo.GroupsForSubject");
+                SqlParameterCollection pp = adapter.SelectCommand.Parameters;
+                SqlParameter p = new SqlParameter("@SubjectId", subj.SubjectId);
+                pp.Add(p);
+                DataTable table = new DataTable();
+                adapter.Fill(table);
+                List<Group> gList = new List<Group>();
+                foreach (DataRow row in table.Rows)
+                {
+                    Group g = new Group();
+                    g.GroupId = row.Field<int>("GroupId");
+                    g.Name = row.Field<string>("Name");
+                    g.Subject = new Subject
+                    {
+                        SubjectId = row.Field<int>("SubjectId"),
+                        Name = row.Field<string>("SubjectName")
+                    };
+                    g.Prof = new Teacher
+                    {
+                        TeacherId = row.Field<int>("TeacherId"),
+                        SubjectId = row.Field<int>("SubjectId"),
+                        FirstName = row.Field<string>("PFirstName"),
+                        LastName = row.Field<string>("PLastName")
+                    };
+                    gList.Add(g);
+                }
+                App.CloseConnection();
+                return gList;
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
         public bool RegStudInGroup(Group group, Student stud)
         {//[RegStudInGroup]
             try

@@ -155,6 +155,33 @@ namespace DataLayer.Repository
             }
         }
 
-        
+        public Teacher GetByUser(User user)
+        {
+            try
+            {
+                App.OpenConnection();
+                SqlCommand command = App.CreateCommand("dbo.TeacherGetByUser");
+                SqlParameterCollection pp = command.Parameters;
+                SqlParameter p = new SqlParameter("@Login", user.Login);
+                pp.Add(p);
+                SqlDataReader reader = command.ExecuteReader();
+                Teacher t = new Teacher();
+                while (reader.Read())
+                {
+                    t.TeacherId = reader.GetInt32(reader.GetOrdinal("TeacherId"));
+                    t.FirstName = reader.GetString(reader.GetOrdinal("FirstName"));
+                    t.LastName = reader.GetString(reader.GetOrdinal("LastName"));
+                    t.SubjectId = reader.GetInt32(reader.GetOrdinal("SubjectId"));
+                    t.UserId = reader.GetInt32(reader.GetOrdinal("UserId"));
+                }
+                reader.Close();
+                App.CloseConnection();
+                return t;
+            }
+            catch
+            {
+                return null;
+            }
+        }
     }
 }

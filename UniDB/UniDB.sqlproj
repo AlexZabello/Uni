@@ -8,13 +8,13 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectVersion>4.1</ProjectVersion>
     <ProjectGuid>{756d8834-2e1f-498d-bf10-25919b2123f5}</ProjectGuid>
-    <DSP>Microsoft.Data.Tools.Schema.Sql.Sql120DatabaseSchemaProvider</DSP>
+    <DSP>Microsoft.Data.Tools.Schema.Sql.Sql100DatabaseSchemaProvider</DSP>
     <OutputType>Database</OutputType>
     <RootPath>
     </RootPath>
     <RootNamespace>UniDB</RootNamespace>
     <AssemblyName>UniDB</AssemblyName>
-    <ModelCollation>1033, CI</ModelCollation>
+    <ModelCollation>1033,CI</ModelCollation>
     <DefaultFileStructure>BySchemaAndSchemaType</DefaultFileStructure>
     <DeployToDatabase>True</DeployToDatabase>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
@@ -23,6 +23,8 @@
     <SqlServerVerification>False</SqlServerVerification>
     <IncludeCompositeObjects>True</IncludeCompositeObjects>
     <TargetDatabaseSet>True</TargetDatabaseSet>
+    <DefaultCollation>SQL_Latin1_General_CP1_CI_AS</DefaultCollation>
+    <DefaultFilegroup>PRIMARY</DefaultFilegroup>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <OutputPath>bin\Release\</OutputPath>
@@ -57,5 +59,52 @@
   <Import Condition="'$(SQLDBExtensionsRefPath)' == ''" Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
   <ItemGroup>
     <Folder Include="Properties" />
+    <Folder Include="dbo\" />
+    <Folder Include="dbo\Tables\" />
+    <Folder Include="dbo\Stored Procedures\" />
+    <Folder Include="dbo\Views" />
+  </ItemGroup>
+  <ItemGroup>
+    <Build Include="dbo\Tables\Subject.sql" />
+    <Build Include="dbo\Tables\UserRole.sql" />
+    <Build Include="dbo\Tables\Teacher.sql" />
+    <Build Include="dbo\Tables\Group.sql" />
+    <Build Include="dbo\Tables\User.sql" />
+    <Build Include="dbo\Tables\Student.sql" />
+    <Build Include="dbo\Stored Procedures\StudentList.sql" />
+    <Build Include="dbo\Stored Procedures\StudentGet.sql" />
+    <Build Include="dbo\Stored Procedures\StudentUpdate.sql" />
+    <Build Include="dbo\Stored Procedures\StudentDelete.sql" />
+    <Build Include="dbo\Stored Procedures\TeacherList.sql" />
+    <Build Include="dbo\Stored Procedures\TeacherGet.sql" />
+    <Build Include="dbo\Stored Procedures\TeacherUpdate.sql" />
+    <Build Include="dbo\Stored Procedures\TeacherDelete.sql" />
+    <Build Include="dbo\Stored Procedures\SubjectUpdate.sql" />
+    <Build Include="dbo\Stored Procedures\SubjectList.sql" />
+    <Build Include="dbo\Stored Procedures\SubjectGet.sql" />
+    <Build Include="dbo\Stored Procedures\SubjectDelete.sql" />
+    <Build Include="dbo\Stored Procedures\GroupUpdate.sql" />
+    <Build Include="dbo\Stored Procedures\GroupList.sql" />
+    <Build Include="dbo\Stored Procedures\GroupGet.sql" />
+    <Build Include="dbo\Stored Procedures\GroupDelete.sql" />
+    <Build Include="dbo\Stored Procedures\RegStudInGroup.sql" />
+    <Build Include="dbo\Stored Procedures\UnRegStudInGroup.sql" />
+    <Build Include="dbo\Stored Procedures\UsersList.sql" />
+    <Build Include="dbo\Stored Procedures\UserGet.sql" />
+    <Build Include="dbo\Stored Procedures\UserUpdate.sql" />
+    <Build Include="dbo\Stored Procedures\UserCheck.sql" />
+    <Build Include="dbo\Stored Procedures\UserRoleGet.sql" />
+    <Build Include="dbo\Stored Procedures\StudentSearch.sql" />
+    <Build Include="dbo\Stored Procedures\UserRoleList.sql" />
+    <Build Include="dbo\Tables\Test1.sql" />
+    <Build Include="dbo\Tables\Test2.sql" />
+    <Build Include="dbo\Tables\Test3.sql" />
+    <Build Include="dbo\Stored Procedures\GroupsForSubject.sql" />
+    <Build Include="dbo\Views\vGropList.sql" />
+    <Build Include="dbo\Stored Procedures\TeacherGetByUser.sql" />
+    <Build Include="dbo\Views\vStudentList.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <RefactorLog Include="UniDB.refactorlog" />
   </ItemGroup>
 </Project>

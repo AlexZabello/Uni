@@ -35,7 +35,7 @@ th {
 
 #students { 
   float: left; 
-  width: 30%; 
+  width: auto; 
 }
 
 
@@ -45,3 +45,7 @@ th {
  
 }
 
+#buttons {
+    float: left;
+    margin-left:40px;
+}

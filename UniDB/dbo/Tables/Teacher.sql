@@ -9,3 +9,7 @@
     CONSTRAINT [FK_Teacher_User] FOREIGN KEY ([UserId]) REFERENCES [dbo].[User] ([UserId])
 );
 
+
+GO
+
+CREATE UNIQUE INDEX [IX_Teacher_UserId] ON [dbo].[Teacher] ([UserId])

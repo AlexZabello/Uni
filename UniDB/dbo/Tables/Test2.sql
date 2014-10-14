@@ -1,0 +1,7 @@
+﻿CREATE TABLE [dbo].[Test2]
+(
+	[IdTest2] INT NOT NULL PRIMARY KEY IDENTITY, 
+    [IdTest1] INT NOT NULL, 
+    [IdTest3] INT NOT NULL, 
+    CONSTRAINT [FK_Test2_To_Test1] FOREIGN KEY ([IdTest1]) REFERENCES [Test1]([IdTest1])
+)

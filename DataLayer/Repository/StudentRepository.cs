@@ -228,37 +228,16 @@ namespace DataLayer.Repository
             }
         }
 
-        public bool CreateStudSubject(Student stud, Subject sub)
+        public bool RegStudentToGroup(Student stud, Group group)
         {
             try
             {
                 App.OpenConnection();
-                SqlCommand command = App.CreateCommand("SetSubjectToStudent");
+                SqlCommand command = App.CreateCommand("RegStudInGroup");
                 SqlParameterCollection pp = command.Parameters;
                 SqlParameter p = new SqlParameter("@StudentId", stud.StudentId);
                 pp.Add(p);
-                p = new SqlParameter("@SubjectId", sub.SubjectId);
-                pp.Add(p);
-
-                command.ExecuteNonQuery();
-            }
-            catch 
-            {
-                return false;
-            }
-            return true;
-        }
-
-        public bool DeleteStudSubject(Student stud, Subject sub)
-        {//[RemoveSubjectToStudent]
-            try
-            {
-                App.OpenConnection();
-                SqlCommand command = App.CreateCommand("RemoveSubjectToStudent");
-                SqlParameterCollection pp = command.Parameters;
-                SqlParameter p = new SqlParameter("@StudentId", stud.StudentId);
-                pp.Add(p);
-                p = new SqlParameter("@SubjectId", sub.SubjectId);
+                p = new SqlParameter("@GroupId", group.GroupId);
                 pp.Add(p);
 
                 command.ExecuteNonQuery();
@@ -269,5 +248,27 @@ namespace DataLayer.Repository
             }
             return true;
         }
+
+        public bool UnRegStudentToGroup(Student stud, Group group)
+        {
+            try
+            {
+                App.OpenConnection();
+                SqlCommand command = App.CreateCommand("UnRegStudInGroup");
+                SqlParameterCollection pp = command.Parameters;
+                SqlParameter p = new SqlParameter("@StudentId", stud.StudentId);
+                pp.Add(p);
+                p = new SqlParameter("@GroupId", group.GroupId);
+                pp.Add(p);
+
+                command.ExecuteNonQuery();
+            }
+            catch
+            {
+                return false;
+            }
+            return true;
+        }
+
     }
 }

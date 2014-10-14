@@ -49,7 +49,7 @@ namespace Uni.Pages.Admin
                 App app = Uni.Helpers.DataHelper.GetApp();
                 StudentRepository rep = new StudentRepository();
                 rep.App = app;
-                bool res = rep.Insert(stud);
+                bool res = rep.Update(stud);
             }
         }
 

@@ -1,0 +1,6 @@
+﻿CREATE TABLE [dbo].[Test1]
+(
+	[IdTest1] INT NOT NULL PRIMARY KEY IDENTITY, 
+    [IdTest2] INT NOT NULL, 
+    [IdTest3] INT NOT NULL 
+)

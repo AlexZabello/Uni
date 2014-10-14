@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataLayer.Test", "DataLayer
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Uni", "Uni\Uni.csproj", "{C9EACE91-D790-4F32-A037-6E444EDAF3E3}"
 EndProject
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "UniDB", "UniDB\UniDB.sqlproj", "{756D8834-2E1F-498D-BF10-25919B2123F5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -25,6 +27,12 @@ Global
 		{C9EACE91-D790-4F32-A037-6E444EDAF3E3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C9EACE91-D790-4F32-A037-6E444EDAF3E3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C9EACE91-D790-4F32-A037-6E444EDAF3E3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{756D8834-2E1F-498D-BF10-25919B2123F5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{756D8834-2E1F-498D-BF10-25919B2123F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{756D8834-2E1F-498D-BF10-25919B2123F5}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{756D8834-2E1F-498D-BF10-25919B2123F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{756D8834-2E1F-498D-BF10-25919B2123F5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{756D8834-2E1F-498D-BF10-25919B2123F5}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,0 +1,26 @@
+﻿** Highlights
+     Tables that will be rebuilt
+       None
+     Clustered indexes that will be dropped
+       None
+     Clustered indexes that will be created
+       None
+     Possible data issues
+       None
+
+** User actions
+     Drop
+       [dbo].[Test3].[IX_Test3] (Index)
+       [dbo].[FK_Test2_Test1] (Foreign Key)
+       [dbo].[FK_Test2_Test3] (Foreign Key)
+       [dbo].[FK_Test3_Test1] (Foreign Key)
+     Create
+       [dbo].[Test3].[IX_Test3_IdTest1] (Index)
+       [dbo].[FK_Test2_To_Test1] (Foreign Key)
+       [dbo].[FK_Test3_To_Test1] (Foreign Key)
+       [dbo].[vGropList] (View)
+       [dbo].[GroupsForSubject] (Procedure)
+     Alter
+       [dbo].[GroupList] (Procedure)
+
+** Supporting actions

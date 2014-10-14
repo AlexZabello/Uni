@@ -70,7 +70,7 @@ namespace Uni.Pages
                 }
                 else if (Page.User.IsInRole("teacher"))
                 {
-                    menu = string.Format("<a href=\"{0}\">{1}</a>", "teacher", "Managing");
+                    menu = string.Format("<a href=\"{0}\">{1}</a>", RouteTable.Routes.GetVirtualPath(null, "teacher", new RouteValueDictionary() { { "teacher", null } }).VirtualPath, "Managing");
                 }
                 return HttpUtility.HtmlDecode(menu);
             }

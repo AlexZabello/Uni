@@ -7,7 +7,6 @@ BEGIN
 SELECT s.StudentId
 	  ,s.FirstName
 	  ,s.LastName
-	  ,s.UserId
 FROM Student s
 WHERE s.StudentId = @StudentId
 END

@@ -39,9 +39,12 @@ namespace Uni.Pages.Teacher
         public IEnumerable<Group> GetGroups()
         {
             App app = DataHelper.GetApp();
+            TeacherRepository tRep = new TeacherRepository();
+            tRep.App = app;
+            DataLayer.Entity.Teacher t = tRep.GetByUser(new DataLayer.Entity.User() { Login = User.Identity.Name });
             GroupRepository rep = new GroupRepository();
             rep.App = app;
-            IEnumerable<Group> g = rep.GetAll();
+            IEnumerable<Group> g = rep.GetAllForSubject(new Subject(){ SubjectId = t.SubjectId});
             return g;
         }
 
@@ -71,6 +74,7 @@ namespace Uni.Pages.Teacher
             App app = DataHelper.GetApp();
             StudentRepository rep = new StudentRepository();
             rep.App = app;
+
             
         }
 
