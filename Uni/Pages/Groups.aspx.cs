@@ -22,8 +22,8 @@ namespace Uni.Pages
         public IEnumerable<Uni.Models.GroupModel> GetGroups()
         {
             App app = DataHelper.GetApp();
-            GroupRepository rep = new GroupRepository();
-            rep.App = app;
+            GroupRepository rep = new GroupRepository(app);
+            
 
             IEnumerable<Group> groups = rep.GetAll();
 

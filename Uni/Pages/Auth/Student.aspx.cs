@@ -23,8 +23,7 @@ namespace Uni.Pages.Admin
         public IEnumerable<DataLayer.Entity.Student> GetStudents()
         {
             App app = Uni.Helpers.DataHelper.GetApp();
-            StudentRepository rep = new StudentRepository();
-            rep.App = app;
+            StudentRepository rep = new StudentRepository(app);
 
             return rep.GetAll();
         }
@@ -35,8 +34,7 @@ namespace Uni.Pages.Admin
             if (TryUpdateModel(stud))
             {
                 App app = Uni.Helpers.DataHelper.GetApp();
-                StudentRepository rep = new StudentRepository();
-                rep.App = app;
+                StudentRepository rep = new StudentRepository(app);
                 bool res = rep.Insert(stud);
             }
         }
@@ -47,8 +45,8 @@ namespace Uni.Pages.Admin
             if (TryUpdateModel(stud))
             {
                 App app = Uni.Helpers.DataHelper.GetApp();
-                StudentRepository rep = new StudentRepository();
-                rep.App = app;
+                StudentRepository rep = new StudentRepository(app);
+                
                 bool res = rep.Update(stud);
             }
         }
@@ -59,8 +57,8 @@ namespace Uni.Pages.Admin
             if (TryUpdateModel(stud))
             {
                 App app = Uni.Helpers.DataHelper.GetApp();
-                StudentRepository rep = new StudentRepository();
-                rep.App = app;
+                StudentRepository rep = new StudentRepository(app);
+                
                 bool res = rep.Delete(stud.StudentId);
             }
         }
@@ -68,8 +66,7 @@ namespace Uni.Pages.Admin
         public IEnumerable<Subject> GetSubjects()
         {
             App app = DataHelper.GetApp();
-            SubjectRepository rep = new SubjectRepository();
-            rep.App = app;
+            SubjectRepository rep = new SubjectRepository(app);
 
             return rep.GetAll();
         }

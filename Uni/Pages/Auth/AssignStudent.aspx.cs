@@ -29,9 +29,7 @@ namespace Uni.Pages.Teacher
         public System.Collections.IEnumerable GetStudents()
         {
             App app = DataHelper.GetApp();
-            StudentRepository rep = new StudentRepository();
-            rep.App = app;
-
+            StudentRepository rep = new StudentRepository(app);
             
             return rep.GetAll().Where(p=>p.Group == null);
         }
@@ -39,11 +37,9 @@ namespace Uni.Pages.Teacher
         public IEnumerable<Group> GetGroups()
         {
             App app = DataHelper.GetApp();
-            TeacherRepository tRep = new TeacherRepository();
-            tRep.App = app;
+            TeacherRepository tRep = new TeacherRepository(app);
             DataLayer.Entity.Teacher t = tRep.GetByUser(new DataLayer.Entity.User() { Login = User.Identity.Name });
-            GroupRepository rep = new GroupRepository();
-            rep.App = app;
+            GroupRepository rep = new GroupRepository(app);
             IEnumerable<Group> g = rep.GetAllForSubject(new Subject(){ SubjectId = t.SubjectId});
             return g;
         }
@@ -58,8 +54,8 @@ namespace Uni.Pages.Teacher
         public IEnumerable<Student> GetStudentsInGroup()
         {
             App app = DataHelper.GetApp();
-            StudentRepository rep = new StudentRepository();
-            rep.App = app;
+            StudentRepository rep = new StudentRepository(app);
+            
             int id = 0;
             if (DDLGroup.Items.Count >0)
             {
@@ -72,9 +68,7 @@ namespace Uni.Pages.Teacher
         protected void bLeft_Click(object sender, EventArgs e)
         {
             App app = DataHelper.GetApp();
-            StudentRepository rep = new StudentRepository();
-            rep.App = app;
-
+            StudentRepository rep = new StudentRepository(app);
             
         }
 

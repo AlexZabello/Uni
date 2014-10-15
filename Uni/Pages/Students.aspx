@@ -31,7 +31,7 @@
             <td>
                 <asp:Button ID="bSearch" runat="server" Text="Search" OnClick="bSearch_Click" /></td>
         </tr>
-            <asp:Repeater ID="Repeater1" ItemType="Uni.Models.StudentModel" runat="server">
+            <asp:Repeater ID="Repeater1" ItemType="Uni.Models.Student" runat="server">
                 <ItemTemplate>
                     <tr>
                         <td><%# Item.FirstName %></td>

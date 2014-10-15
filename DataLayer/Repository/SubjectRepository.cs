@@ -10,10 +10,14 @@ using System.Threading.Tasks;
 
 namespace DataLayer.Repository
 {
-    public class SubjectRepository : AppContainer, IRepository<Subject>
+    public class SubjectRepository : Repository<Subject>
     {
+        public SubjectRepository(App app): base(app)
+        {
 
-        public IEnumerable<Subject> GetAll()
+        }
+
+        public override IEnumerable<Subject> GetAll()
         {//[SubjectList]
             try
             {
@@ -38,7 +42,7 @@ namespace DataLayer.Repository
             }
         }
 
-        public Subject Get(int id)
+        public override Subject Get(int id)
         {//[SubjectGet]
             try
             {
@@ -64,7 +68,7 @@ namespace DataLayer.Repository
             }
         }
 
-        public bool Insert(Subject item)
+        public override bool Insert(Subject item)
         {//[SubjectUpdate]
             try
             {
@@ -89,7 +93,7 @@ namespace DataLayer.Repository
             return true;
         }
 
-        public bool Update(Subject item)
+        public override bool Update(Subject item)
         {//[SubjectUpdate]
             try
             {
@@ -113,7 +117,7 @@ namespace DataLayer.Repository
             return true;
         }
 
-        public bool Delete(int id)
+        public override bool Delete(int id)
         {//[SubjectDelete]
             try
             {

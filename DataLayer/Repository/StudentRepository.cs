@@ -11,9 +11,13 @@ using System.Linq.Expressions;
 
 namespace DataLayer.Repository
 {
-    public class StudentRepository : AppContainer, IRepository<Student> 
+    public class StudentRepository : Repository<Student> 
     {
-        public IEnumerable<Student> GetAll()
+        public StudentRepository(App app): base(app)
+        {
+        }
+
+        public override IEnumerable<Student> GetAll()
         {
             //dbo.StudentList
             try
@@ -119,7 +123,7 @@ namespace DataLayer.Repository
             }
         }
 
-        public Student Get(int id)
+        public override Student Get(int id)
         {
             //dbo.StudentGet
             try
@@ -148,7 +152,7 @@ namespace DataLayer.Repository
             
         }
 
-        public bool Insert(Student item)
+        public override bool Insert(Student item)
         {
             //dbo.StudentUpdate
             try
@@ -179,7 +183,7 @@ namespace DataLayer.Repository
             return true;
         }
 
-        public bool Update(Student item)
+        public override bool Update(Student item)
         {
             //dbo.StudentUpdate
             try
@@ -208,7 +212,7 @@ namespace DataLayer.Repository
             return true;
         }
 
-        public bool Delete(int id)
+        public override bool Delete(int id)
         {
             //dbo.StudentDelete
             try

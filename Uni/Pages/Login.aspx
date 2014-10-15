@@ -18,14 +18,15 @@
         <span id="message" class="error" runat="server">Incorrect username or password</span>
         <div class="loginContainer">
             <div>
-                <label for="name">Name:</label>
-                <input name="name" />
+                <label for="txtName">Name:</label>
+                <asp:TextBox ID="txtName" runat="server"></asp:TextBox>
             </div>
             <div>
-                <label for="password">Password:</label>
-                <input type="password" name="password" />
+                <label for="txtPassword">Password:</label>
+                <asp:TextBox ID="txtPassword" TextMode="Password" runat="server"></asp:TextBox>
             </div>
-            <button name="action" value="login" type="submit">Log In</button>
+            <asp:Button ID="btnLogin" OnClick="btnLogin_Click" Text="Log In" runat="server"/>
+            
         </div>
     </form>
 </body>

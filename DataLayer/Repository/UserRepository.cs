@@ -10,9 +10,14 @@ using System.Threading.Tasks;
 
 namespace DataLayer.Repository
 {
-    public class UserRepository : AppContainer, IRepository<User>
+    public class UserRepository : Repository<User>
     {
-        public IEnumerable<User> GetAll()
+        public UserRepository(App app): base(app)
+        {
+
+        }
+
+        public override IEnumerable<User> GetAll()
         {//UsersList
             try
             {
@@ -43,7 +48,7 @@ namespace DataLayer.Repository
             }
         }
 
-        public User Get(int id)
+        public override User Get(int id)
         {//UserGet
             try
             {
@@ -70,7 +75,7 @@ namespace DataLayer.Repository
             }
         }
 
-        public bool Insert(User item)
+        public override bool Insert(User item)
         {//UserUpdate
             try
             {
@@ -97,7 +102,7 @@ namespace DataLayer.Repository
             return true;
         }
 
-        public bool Update(User item)
+        public override bool Update(User item)
         {//UserUpdate
             try
             {
@@ -127,7 +132,7 @@ namespace DataLayer.Repository
             return true;
         }
 
-        public bool Delete(int id)
+        public override bool Delete(int id)
         {
             throw new NotImplementedException();
         }

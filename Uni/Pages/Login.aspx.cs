@@ -10,40 +10,43 @@ using Uni.Helpers;
 using DataLayer.Entity;
 using System.Web.Security;
 using System.Web.Routing;
+using Uni.View;
+using Uni.Presenter;
 
 namespace Uni.Pages
 {
-    public partial class Login : System.Web.UI.Page
+    public partial class Login : System.Web.UI.Page, ILoginView
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (IsPostBack)
-            {
-                string user = Request["name"];
-                string password = Request["password"];
-                string action = Request["action"];
+            #region For Delete
 
-                App app = DataHelper.GetApp();
-                UserRepository rep = new UserRepository();
-                rep.App = app;
-                if (action == "login" && rep.Check(new User { Login = user, Password = password }))
-                {
-                    FormsAuthentication.RedirectFromLoginPage(user, false);
-                    //FormsAuthentication.SetAuthCookie(user, false);
-                    //string url = RouteTable.Routes.GetVirtualPath(null, "auth", new RouteValueDictionary()).VirtualPath;
-                    //Response.Redirect(url);
-                }
-                else
-                {
-                    message.Style["visibility"] = "visible";
-                }
-            }
-            if (Request.IsAuthenticated)
-            {
-                Response.StatusCode = 403;
-                Response.SuppressContent = true;
-                Context.ApplicationInstance.CompleteRequest();
-            }
+            //if (IsPostBack)
+            //{
+            //    string user = Request["name"];
+            //    string password = Request["password"];
+            //    string action = Request["action"];
+
+            //    App app = DataHelper.GetApp();
+            //    UserRepository rep = new UserRepository(app);
+            //    if (action == "login" && rep.Check(new User { Login = user, Password = password }))
+            //    {
+                    
+            //        //FormsAuthentication.SetAuthCookie(user, false);
+            //        //string url = RouteTable.Routes.GetVirtualPath(null, "auth", new RouteValueDictionary()).VirtualPath;
+            //        //Response.Redirect(url);
+            //    }
+            //    else
+            //    {
+                   
+            //    }
+            //}
+            //if (Request.IsAuthenticated)
+            //{
+            //    Response.StatusCode = 403;
+            //    Response.SuppressContent = true;
+            //    Context.ApplicationInstance.CompleteRequest();
+            //}
                 
 
                 //if (name != string.Empty && password != string.Empty && FormsAuthentication.Authenticate(name, password))
@@ -67,8 +70,9 @@ namespace Uni.Pages
                 //else
                 //{
                 //    ModelState.AddModelError("fail", "Login failed. Please try again");
-                //}
-            
+            //}
+
+            #endregion //For Delete
         }
 
         protected string GetUser()
@@ -79,6 +83,44 @@ namespace Uni.Pages
         protected bool GetRequestStatus()
         {
             return Request.IsAuthenticated;
+        }
+
+        public string LoginName
+        {
+            get
+            {
+                return txtName.Text;
+            }
+            set
+            {
+                txtName.Text = value;
+            }
+        }
+
+        public string Password
+        {
+            get
+            {
+                return txtPassword.Text;
+            }
+            set
+            {
+                txtPassword.Text = value;
+            }
+        }
+
+        protected void btnLogin_Click(object sender, EventArgs e)
+        {
+            LoginPresenter presenter = new LoginPresenter(this);
+
+            if (presenter.Login())
+            {
+                FormsAuthentication.RedirectFromLoginPage(txtName.Text, false);
+            }
+            else
+            {
+                message.Style["visibility"] = "visible";
+            }
         }
     }
 }

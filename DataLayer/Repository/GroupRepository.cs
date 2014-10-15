@@ -10,9 +10,13 @@ using System.Threading.Tasks;
 
 namespace DataLayer.Repository
 {
-    public class GroupRepository : AppContainer, IRepository<Group>
+    public class GroupRepository : Repository<Group>
     {
-        public IEnumerable<Group> GetAll()
+        public GroupRepository(App app) : base(app)
+        {
+        }
+
+        public override IEnumerable<Group> GetAll()
         {//[GroupList]
             try
             {
@@ -49,7 +53,7 @@ namespace DataLayer.Repository
             }
         }
 
-        public Group Get(int id)
+        public override Group Get(int id)
         {//[GroupGet]
             try
             {
@@ -77,7 +81,7 @@ namespace DataLayer.Repository
             }
         }
 
-        public bool Insert(Group item)
+        public override bool Insert(Group item)
         {//[GroupUpdate]
             try
             {
@@ -106,7 +110,7 @@ namespace DataLayer.Repository
             return true;
         }
 
-        public bool Update(Group item)
+        public override bool Update(Group item)
         {//[GroupUpdate]
             try
             {
@@ -134,7 +138,7 @@ namespace DataLayer.Repository
             return true;
         }
 
-        public bool Delete(int id)
+        public override bool Delete(int id)
         {//[GroupDelete]
             try
             {

@@ -3,7 +3,3 @@ D:\Projects\Training\ASP.NET\Uni\UniDB\obj\Debug\UniDB.dll
 D:\Projects\Training\ASP.NET\Uni\UniDB\obj\Debug\UniDB.pdb
 D:\Projects\Training\ASP.NET\Uni\UniDB\bin\Debug\UniDB.dll
 D:\Projects\Training\ASP.NET\Uni\UniDB\bin\Debug\UniDB.pdb
-D:\Projects\Training\ASP.NET\Uni\UniDB\obj\Debug\Model.xml
-D:\Projects\Training\ASP.NET\Uni\UniDB\obj\Debug\refactor.xml
-D:\Projects\Training\ASP.NET\Uni\UniDB\obj\Debug\postdeploy.sql
-D:\Projects\Training\ASP.NET\Uni\UniDB\obj\Debug\predeploy.sql

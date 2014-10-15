@@ -61,8 +61,7 @@ namespace DataLayer.Test
         private StudentRepository CreateRep()
         {
             App app = new App(con);
-            StudentRepository rep = new StudentRepository();
-            rep.App = app;
+            StudentRepository rep = new StudentRepository(app);
             return rep;
         }
 

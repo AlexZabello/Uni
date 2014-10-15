@@ -50,8 +50,7 @@ namespace Uni.RoleProv
         public override string[] GetAllRoles()
         {
             App app = DataHelper.GetApp();
-            UserRepository rep = new UserRepository();
-            rep.App = app;
+            UserRepository rep = new UserRepository(app);
             List<UserRole> list = rep.GetAllUserRole().ToList();
             app.CloseConnection();
             string[] roles = new string[list.Count()];
@@ -66,8 +65,7 @@ namespace Uni.RoleProv
         public override string[] GetRolesForUser(string username)
         {
             App app = DataHelper.GetApp();
-            UserRepository rep = new UserRepository();
-            rep.App = app;
+            UserRepository rep = new UserRepository(app);
             UserRole role = rep.GetUserRole(new User { Login = username });
             app.CloseConnection();
             return new string[] { role.Name };

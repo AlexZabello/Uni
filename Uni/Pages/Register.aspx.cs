@@ -18,8 +18,7 @@ namespace Uni.Pages
             if (IsPostBack)
             {
                 App app = DataHelper.GetApp();
-                UserRepository rep = new UserRepository();
-                rep.App = app;
+                UserRepository rep = new UserRepository(app);
 
                 DataLayer.Entity.User user = new DataLayer.Entity.User();
                 user.Login = txtLogin.Text;

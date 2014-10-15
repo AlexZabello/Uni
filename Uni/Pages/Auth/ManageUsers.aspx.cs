@@ -23,8 +23,7 @@ namespace Uni.Pages.Auth
         public IEnumerable<UserModel> GetUsers()
         {
             App app = DataHelper.GetApp();
-            UserRepository rep = new UserRepository();
-            rep.App = app;
+            UserRepository rep = new UserRepository(app);
 
             IEnumerable<DataLayer.Entity.User> l = rep.GetAll();
             List<UserModel> list = new List<UserModel>();
@@ -50,8 +49,7 @@ namespace Uni.Pages.Auth
         public IEnumerable<DataLayer.Entity.UserRole> GetRoles()
         {
             App app = DataHelper.GetApp();
-            UserRepository rep = new UserRepository();
-            rep.App = app;
+            UserRepository rep = new UserRepository(app);
             List<DataLayer.Entity.UserRole> list = rep.GetAllUserRole().ToList();
 
             list.Insert(0, new DataLayer.Entity.UserRole { UserRoleId = 0, Name = "" });
@@ -69,8 +67,7 @@ namespace Uni.Pages.Auth
                 user.Login = userM.Login;
                 user.UserRoleId = userM.UserRoleId;
                 App app = Uni.Helpers.DataHelper.GetApp();
-                UserRepository rep = new UserRepository();
-                rep.App = app;
+                UserRepository rep = new UserRepository(app);
                 bool res = rep.Update(user);
             }
         }
