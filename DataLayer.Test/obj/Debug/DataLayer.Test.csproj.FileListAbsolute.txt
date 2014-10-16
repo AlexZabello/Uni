@@ -5,3 +5,9 @@ D:\Projects\Training\ASP.NET\Uni\DataLayer.Test\bin\Debug\DataLayer.pdb
 D:\Projects\Training\ASP.NET\Uni\DataLayer.Test\obj\Debug\DataLayer.Test.csprojResolveAssemblyReference.cache
 D:\Projects\Training\ASP.NET\Uni\DataLayer.Test\obj\Debug\DataLayer.Test.dll
 D:\Projects\Training\ASP.NET\Uni\DataLayer.Test\obj\Debug\DataLayer.Test.pdb
+D:\Projects\Training\ASP.NET\Uni\DataLayer.Test\bin\Debug\Moq.dll
+D:\Projects\Training\ASP.NET\Uni\DataLayer.Test\bin\Debug\nunit.framework.dll
+D:\Projects\Training\ASP.NET\Uni\DataLayer.Test\bin\Debug\Uni.dll
+D:\Projects\Training\ASP.NET\Uni\DataLayer.Test\bin\Debug\Uni.pdb
+D:\Projects\Training\ASP.NET\Uni\DataLayer.Test\bin\Debug\Moq.xml
+D:\Projects\Training\ASP.NET\Uni\DataLayer.Test\bin\Debug\nunit.framework.xml
