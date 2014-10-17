@@ -9,7 +9,9 @@ namespace DataLayer.Entity
     public class Group : IItem
     {
         public int GroupId { get; set; }
+        
         public string Name { get; set; }
+        
         public int SubjectId 
         {
             get
@@ -21,6 +23,7 @@ namespace DataLayer.Entity
                 Subject.SubjectId = value;
             }
         }
+        
         public Subject Subject { get; set; }
 
         public int TeacherId
@@ -34,6 +37,7 @@ namespace DataLayer.Entity
                 Prof.TeacherId = value;
             }
         }
+        
         public Teacher Prof { get; set; }
     }
 }

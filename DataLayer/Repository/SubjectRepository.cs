@@ -14,7 +14,6 @@ namespace DataLayer.Repository
     {
         public SubjectRepository(App app): base(app)
         {
-
         }
 
         public override IEnumerable<Subject> GetAll()
@@ -25,16 +24,16 @@ namespace DataLayer.Repository
                 SqlDataAdapter adapter = App.CreateAdapter("dbo.SubjectList");
                 DataTable table = new DataTable();
                 adapter.Fill(table);
-                List<Subject> subList = new List<Subject>();
+                List<Subject> subjectCollection = new List<Subject>();
                 foreach (DataRow row in table.Rows)
                 {
-                    Subject sub = new Subject();
-                    sub.SubjectId = row.Field<int>("SubjectId");
-                    sub.Name = row.Field<string>("Name");
-                    subList.Add(sub);
+                    Subject subject = new Subject();
+                    subject.SubjectId = row.Field<int>("SubjectId");
+                    subject.Name = row.Field<string>("Name");
+                    subjectCollection.Add(subject);
                 }
                 App.CloseConnection();
-                return subList;
+                return subjectCollection;
             }
             catch
             {
@@ -49,18 +48,18 @@ namespace DataLayer.Repository
                 App.OpenConnection();
                 SqlCommand command = App.CreateCommand("dbo.SubjectGet");
                 SqlParameterCollection pp = command.Parameters;
-                SqlParameter p = new SqlParameter("@SubjectId", id);
-                pp.Add(p);
+                SqlParameter parameter = new SqlParameter("@SubjectId", id);
+                pp.Add(parameter);
                 SqlDataReader reader = command.ExecuteReader();
-                Subject sub = new Subject();
+                Subject subject = new Subject();
                 while (reader.Read())
                 {
-                    sub.SubjectId = id;
-                    sub.Name = reader.GetString(reader.GetOrdinal("Name"));
+                    subject.SubjectId = id;
+                    subject.Name = reader.GetString(reader.GetOrdinal("Name"));
                 }
                 reader.Close();
                 App.CloseConnection();
-                return sub;
+                return subject;
             }
             catch
             {
@@ -79,8 +78,8 @@ namespace DataLayer.Repository
                 SqlParameter pId = new SqlParameter("@SubjectId", SqlDbType.Int);
                 pId.Direction = ParameterDirection.InputOutput;
                 pp.Add(pId);
-                SqlParameter p = new SqlParameter("@Name", item.Name);
-                pp.Add(p);
+                SqlParameter parameter = new SqlParameter("@Name", item.Name);
+                pp.Add(parameter);
 
                 command.ExecuteNonQuery();
                 item.SubjectId = Convert.ToInt32(pId.Value);
@@ -101,11 +100,11 @@ namespace DataLayer.Repository
                 SqlCommand command = App.CreateCommand("dbo.SubjectUpdate");
                 SqlParameterCollection pp = command.Parameters;
 
-                SqlParameter p = new SqlParameter("@SubjectId", item.SubjectId);
-                p.Direction = ParameterDirection.InputOutput;
-                pp.Add(p);
-                p = new SqlParameter("@FirstName", item.Name);
-                pp.Add(p);
+                SqlParameter parameter = new SqlParameter("@SubjectId", item.SubjectId);
+                parameter.Direction = ParameterDirection.InputOutput;
+                pp.Add(parameter);
+                parameter = new SqlParameter("@FirstName", item.Name);
+                pp.Add(parameter);
 
                 command.ExecuteNonQuery();
                 App.CloseConnection();

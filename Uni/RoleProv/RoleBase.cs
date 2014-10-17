@@ -1,35 +1,50 @@
-﻿using DataLayer.Core;
-using DataLayer.Entity;
-using DataLayer.Repository;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Configuration;
-using System.Web.Security;
-using Uni.Helpers;
-
+﻿//-----------------------------------------------------------------------
+// <copyright file="RoleBase.cs" company="CompanyName">
+//     ---
+// </copyright>
+//-----------------------------------------------------------------------
 namespace Uni.RoleProv
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Web;
+    using System.Web.Configuration;
+    using System.Web.Security;
+    using DataLayer.Core;
+    using DataLayer.Entity;
+    using DataLayer.Repository;
+    using Uni.Helpers;
+
+    /// <summary>
+    /// Base role provider
+    /// </summary>
     public class RoleBase : RoleProvider
     {
+        /// <summary>
+        /// connection string for database
+        /// </summary>
         private string connectionString;
 
-        public override void AddUsersToRoles(string[] usernames, string[] roleNames)
-        {
-            throw new NotImplementedException();
-        }
-
+        /// <summary>
+        /// Gets or sets application name
+        /// </summary>
         public override string ApplicationName
         {
             get
             {
                 throw new NotImplementedException();
             }
+
             set
             {
                 throw new NotImplementedException();
             }
+        }
+
+        public override void AddUsersToRoles(string[] usernames, string[] roleNames)
+        {
+            throw new NotImplementedException();
         }
 
         public override void CreateRole(string roleName)
@@ -50,23 +65,24 @@ namespace Uni.RoleProv
         public override string[] GetAllRoles()
         {
             App app = DataHelper.GetApp();
-            UserRepository rep = new UserRepository(app);
-            List<UserRole> list = rep.GetAllUserRole().ToList();
+            UserRepository userRepository = new UserRepository(app);
+            List<UserRole> userRoleCollection = userRepository.GetAllUserRole().ToList();
             app.CloseConnection();
-            string[] roles = new string[list.Count()];
-            int count = list.Count;
-            for (int i = 0; i < list.Count; i++)
+            string[] roles = new string[userRoleCollection.Count()];
+            int count = userRoleCollection.Count;
+            for (int i = 0; i < userRoleCollection.Count; i++)
             {
-                roles[i] = list[i].Name;
+                roles[i] = userRoleCollection[i].Name;
             }
+
             return roles;
         }
 
         public override string[] GetRolesForUser(string username)
         {
             App app = DataHelper.GetApp();
-            UserRepository rep = new UserRepository(app);
-            UserRole role = rep.GetUserRole(new User { Login = username });
+            UserRepository userRepository = new UserRepository(app);
+            UserRole role = userRepository.GetUserRole(new User { Login = username });
             app.CloseConnection();
             return new string[] { role.Name };
         }
@@ -80,8 +96,9 @@ namespace Uni.RoleProv
         {
             if (roleName != string.Empty)
             {
-                return GetRolesForUser(username).Contains(roleName);    
+                return this.GetRolesForUser(username).Contains(roleName);    
             }
+
             return false;
         }
 
@@ -97,8 +114,7 @@ namespace Uni.RoleProv
 
         public override void Initialize(string name, System.Collections.Specialized.NameValueCollection config)
         {
-            connectionString = WebConfigurationManager.ConnectionStrings["Uni"].ConnectionString;
-
+            this.connectionString = WebConfigurationManager.ConnectionStrings["Uni"].ConnectionString;
             
             base.Initialize(name, config);
         }

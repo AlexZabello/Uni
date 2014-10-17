@@ -9,7 +9,9 @@ namespace DataLayer.Entity
     public class User : IItem
     {
         public int UserId { get; set; }
+        
         public string Login { get; set; }
+        
         public int? UserRoleId
         {
             get
@@ -33,6 +35,7 @@ namespace DataLayer.Entity
                 
             }
         }
+       
         public string Password { get; set; }
 
         public UserRole UserRole { get; set; }

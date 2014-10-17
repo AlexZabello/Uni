@@ -1,47 +1,50 @@
-﻿using DataLayer.Core;
-using DataLayer.Repository;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.ModelBinding;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using Uni.Helpers;
-using Uni.Models;
-
+﻿//-----------------------------------------------------------------------
+// <copyright file="ManageUsers.aspx.cs" company="CompanyName">
+//     ---
+// </copyright>
+//-----------------------------------------------------------------------
 namespace Uni.Pages.Auth
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Web;
+    using System.Web.ModelBinding;
+    using System.Web.UI;
+    using System.Web.UI.WebControls;
+    using DataLayer.Core;
+    using DataLayer.Repository;
+    using Uni.Helpers;
+    using Uni.Models;
+
+    /// <summary>
+    /// Manage Users View
+    /// </summary>
     public partial class ManageUsers : System.Web.UI.Page
     {
-        protected void Page_Load(object sender, EventArgs e)
-        {
-            
-        }
-
-
-        public IEnumerable<UserModel> GetUsers()
+        public IEnumerable<UserViewModel> GetUsers()
         {
             App app = DataHelper.GetApp();
             UserRepository rep = new UserRepository(app);
 
             IEnumerable<DataLayer.Entity.User> l = rep.GetAll();
-            List<UserModel> list = new List<UserModel>();
+            List<UserViewModel> list = new List<UserViewModel>();
 
             foreach (DataLayer.Entity.User item in l)
             {
-                UserModel m = new UserModel();
+                UserViewModel m = new UserViewModel();
                 m.UserId = item.UserId;
                 m.Login = item.Login;
                 m.UserRoleId = 0;
+                
                 if (item.UserRole != null)
                 {
                     m.UserRoleId = item.UserRole.UserRoleId;
                     m.UserRole = item.UserRole.Name;
                 }
+
                 list.Add(m);
             }
-
             
             return list;
         }
@@ -52,15 +55,15 @@ namespace Uni.Pages.Auth
             UserRepository rep = new UserRepository(app);
             List<DataLayer.Entity.UserRole> list = rep.GetAllUserRole().ToList();
 
-            list.Insert(0, new DataLayer.Entity.UserRole { UserRoleId = 0, Name = "" });
+            list.Insert(0, new DataLayer.Entity.UserRole { UserRoleId = 0, Name = string.Empty });
             return list;
         }
 
         public void UpdateUser()
         {
-            UserModel userM = new UserModel();
+            UserViewModel userM = new UserViewModel();
 
-            if (TryUpdateModel(userM))
+            if (this.TryUpdateModel(userM))
             {
                 DataLayer.Entity.User user = new DataLayer.Entity.User();
                 user.UserId = userM.UserId;
@@ -70,6 +73,10 @@ namespace Uni.Pages.Auth
                 UserRepository rep = new UserRepository(app);
                 bool res = rep.Update(user);
             }
+        }
+
+        protected void Page_Load(object sender, EventArgs e)
+        {
         }
     }
 }

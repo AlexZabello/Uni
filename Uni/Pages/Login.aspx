@@ -25,7 +25,7 @@
                 <label for="txtPassword">Password:</label>
                 <asp:TextBox ID="txtPassword" TextMode="Password" runat="server"></asp:TextBox>
             </div>
-            <asp:Button ID="btnLogin" OnClick="btnLogin_Click" Text="Log In" runat="server"/>
+            <asp:Button ID="btnLogin" OnClick="OnButtonLogin_Click" Text="Log In" runat="server"/>
             
         </div>
     </form>

@@ -23,8 +23,8 @@
             </table>
     </div>
     <div id="buttons">
-        <p><asp:Button ID="bLeft" runat="server" Text="Exclude" OnClick="bLeft_Click" /></p>
-        <p><asp:Button ID="bRight" runat="server" Text="Include" OnClick="bRight_Click" /></p>
+        <p><asp:Button ID="bLeft" runat="server" Text="Exclude" OnClick="OnButtonLeft_Click" /></p>
+        <p><asp:Button ID="bRight" runat="server" Text="Include" OnClick="OnButtonRight_Click" /></p>
     </div>
     <div id="groupStudent">
         <asp:Label ID="Label1" runat="server" Text="Label"></asp:Label>

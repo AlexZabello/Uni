@@ -1,43 +1,51 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using System.Web.Security;
-using System.Web.Routing;
-
+﻿//-----------------------------------------------------------------------
+// <copyright file="Site.master.cs" company="CompanyName">
+//     ---
+// </copyright>
+//-----------------------------------------------------------------------
 namespace Uni.Pages
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Web;
+    using System.Web.Routing;
+    using System.Web.Security;
+    using System.Web.UI;
+    using System.Web.UI.WebControls;
+
+    /// <summary>
+    /// Site master page
+    /// </summary>
     public partial class Site : System.Web.UI.MasterPage
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
+            if (!Page.IsPostBack)
             {
                 if (Request.IsAuthenticated)
                 {
-                    authAction.InnerText = "Log Out";
+                    this.authAction.InnerText = "Log Out";
                 }
                 else
                 {
-                    userName.Visible = false;
-                    authAction.InnerText = "Log In";
+                    this.userName.Visible = false;
+                    this.authAction.InnerText = "Log In";
                 }
             }
-            else if (IsPostBack && Request["authAction"] == "auth")
+            else if (Page.IsPostBack && Page.Request["authAction"] == "auth")
             {
-                if (Request.IsAuthenticated)
+                if (Page.Request.IsAuthenticated)
                 {
                     FormsAuthentication.SignOut();
-                    Response.Redirect(Request.Path);
+                    Page.Response.Redirect(Page.Request.Path);
                 }
                 else
                 {
                     FormsAuthentication.RedirectToLoginPage();
                 }
             }
-            else if (IsPostBack && Request["authAction"] == "reg")
+            else if (Page.IsPostBack && Page.Request["authAction"] == "reg")
             {
                 Response.RedirectToRoute("register");
             }
@@ -63,6 +71,7 @@ namespace Uni.Pages
             if (Request.IsAuthenticated)
             {
                 string menu = string.Empty;
+          
                 if (Page.User.IsInRole("admin"))
                 {
                     menu = string.Format("<a href=\"{0}\">{1}</a>", RouteTable.Routes.GetVirtualPath(null, "admin", new RouteValueDictionary() { { "admin", null } }).VirtualPath, "Administrate");
@@ -72,10 +81,11 @@ namespace Uni.Pages
                 {
                     menu = string.Format("<a href=\"{0}\">{1}</a>", RouteTable.Routes.GetVirtualPath(null, "teacher", new RouteValueDictionary() { { "teacher", null } }).VirtualPath, "Managing");
                 }
+
                 return HttpUtility.HtmlDecode(menu);
             }
-            return string.Empty;
 
+            return string.Empty;
         }
     }
 }

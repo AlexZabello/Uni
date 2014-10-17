@@ -26,15 +26,15 @@ namespace DataLayer.Repository
                 SqlDataAdapter adapter = App.CreateAdapter("dbo.StudentList");
                 DataTable table = new DataTable();
                 adapter.Fill(table);
-                List<Student> studList = new List<Student>();
+                List<Student> studentCollection = new List<Student>();
                 foreach (DataRow row in table.Rows)
                 {
-                    Student stud = new Student();
-                    stud.StudentId = row.Field<int>("StudentId");
-                    stud.FirstName = row.Field<string>("FirstName");
-                    stud.LastName = row.Field<string>("LastName");
+                    Student student = new Student();
+                    student.StudentId = row.Field<int>("StudentId");
+                    student.FirstName = row.Field<string>("FirstName");
+                    student.LastName = row.Field<string>("LastName");
 
-                    stud.Subject = new Subject
+                    student.Subject = new Subject
                     {
                         SubjectId = row.Field<int>("SubjectId"),
                         Name = row.Field<string>("SubjectName")
@@ -43,7 +43,7 @@ namespace DataLayer.Repository
                     int? id = row.Field<int?>("GroupId");
                     if (id.HasValue)
                     {
-                        stud.Group = new Group
+                        student.Group = new Group
                         {
                             GroupId = id.Value,
                             Name = row.Field<string>("GroupName"),
@@ -54,10 +54,10 @@ namespace DataLayer.Repository
                             }
                         };
                     }
-                    studList.Add(stud);
+                    studentCollection.Add(student);
                 }
                 App.CloseConnection();
-                return studList;
+                return studentCollection;
             }
             catch 
             {
@@ -74,25 +74,25 @@ namespace DataLayer.Repository
                 App.OpenConnection();
                 SqlDataAdapter adapter = App.CreateAdapter("dbo.StudentSearch");
                 SqlParameterCollection pp = adapter.SelectCommand.Parameters;
-                SqlParameter p = new SqlParameter("@FirstName", firstName);
-                pp.Add(p);
-                p = new SqlParameter("@LastName", lastName);
-                pp.Add(p);
-                p = new SqlParameter("@SubjectId", subjectId);
-                pp.Add(p);
-                p = new SqlParameter("@GroupId", groupId);
-                pp.Add(p);
+                SqlParameter parameter = new SqlParameter("@FirstName", firstName);
+                pp.Add(parameter);
+                parameter = new SqlParameter("@LastName", lastName);
+                pp.Add(parameter);
+                parameter = new SqlParameter("@SubjectId", subjectId);
+                pp.Add(parameter);
+                parameter = new SqlParameter("@GroupId", groupId);
+                pp.Add(parameter);
                 DataTable table = new DataTable();
                 adapter.Fill(table);
-                List<Student> studList = new List<Student>();
+                List<Student> studentCollection = new List<Student>();
                 foreach (DataRow row in table.Rows)
                 {
-                    Student stud = new Student();
-                    stud.StudentId = row.Field<int>("StudentId");
-                    stud.FirstName = row.Field<string>("FirstName");
-                    stud.LastName = row.Field<string>("LastName");
+                    Student student = new Student();
+                    student.StudentId = row.Field<int>("StudentId");
+                    student.FirstName = row.Field<string>("FirstName");
+                    student.LastName = row.Field<string>("LastName");
 
-                    stud.Subject = new Subject
+                    student.Subject = new Subject
                     {
                         SubjectId = row.Field<int>("SubjectId"),
                         Name = row.Field<string>("SubjectName")
@@ -101,7 +101,7 @@ namespace DataLayer.Repository
                     int? id = row.Field<int?>("GroupId");
                     if (id.HasValue)
                     {
-                        stud.Group = new Group
+                        student.Group = new Group
                         {
                             GroupId = id.Value,
                             Name = row.Field<string>("GroupName"),
@@ -112,10 +112,10 @@ namespace DataLayer.Repository
                             }
                         };
                     }
-                    studList.Add(stud);
+                    studentCollection.Add(student);
                 }
                 App.CloseConnection();
-                return studList;
+                return studentCollection;
             }
             catch
             {
@@ -131,19 +131,19 @@ namespace DataLayer.Repository
                 App.OpenConnection();
                 SqlCommand command = App.CreateCommand("dbo.StudentGet");
                 SqlParameterCollection pp = command.Parameters;
-                SqlParameter p = new SqlParameter("@StudentId", id);
-                pp.Add(p);
+                SqlParameter parameter = new SqlParameter("@StudentId", id);
+                pp.Add(parameter);
                 SqlDataReader reader = command.ExecuteReader();
-                Student stud = new Student();
+                Student student = new Student();
                 while (reader.Read())
                 {
-                    stud.StudentId = id;
-                    stud.FirstName = reader.GetString(reader.GetOrdinal("FirstName"));
-                    stud.LastName = reader.GetString(reader.GetOrdinal("LastName"));
+                    student.StudentId = id;
+                    student.FirstName = reader.GetString(reader.GetOrdinal("FirstName"));
+                    student.LastName = reader.GetString(reader.GetOrdinal("LastName"));
                 }
                 reader.Close();
                 App.CloseConnection();
-                return stud;
+                return student;
             }
             catch
             {
@@ -163,12 +163,12 @@ namespace DataLayer.Repository
                 SqlParameter pId = new SqlParameter("@StudentId", SqlDbType.Int);
                 pId.Direction = ParameterDirection.InputOutput;
                 pp.Add(pId);
-                SqlParameter p = new SqlParameter("@FirstName", item.FirstName);
-                pp.Add(p);
-                p = new SqlParameter("@LastName", item.LastName);
-                pp.Add(p);
-                p = new SqlParameter("@SubjectId", item.SubjectId);
-                pp.Add(p);
+                SqlParameter parameter = new SqlParameter("@FirstName", item.FirstName);
+                pp.Add(parameter);
+                parameter = new SqlParameter("@LastName", item.LastName);
+                pp.Add(parameter);
+                parameter = new SqlParameter("@SubjectId", item.SubjectId);
+                pp.Add(parameter);
                 //p = new SqlParameter("@UserId", item.UserId);
                 //pp.Add(p);
 
@@ -192,15 +192,15 @@ namespace DataLayer.Repository
                 SqlCommand command = App.CreateCommand("dbo.StudentUpdate");
                 SqlParameterCollection pp = command.Parameters;
 
-                SqlParameter p = new SqlParameter("@StudentId", item.StudentId);
-                p.Direction = ParameterDirection.InputOutput;
-                pp.Add(p);
-                p = new SqlParameter("@FirstName", item.FirstName);
-                pp.Add(p);
-                p = new SqlParameter("@LastName", item.LastName);
-                pp.Add(p);
-                p = new SqlParameter("@SubjectId", item.SubjectId);
-                pp.Add(p);
+                SqlParameter parameter = new SqlParameter("@StudentId", item.StudentId);
+                parameter.Direction = ParameterDirection.InputOutput;
+                pp.Add(parameter);
+                parameter = new SqlParameter("@FirstName", item.FirstName);
+                pp.Add(parameter);
+                parameter = new SqlParameter("@LastName", item.LastName);
+                pp.Add(parameter);
+                parameter = new SqlParameter("@SubjectId", item.SubjectId);
+                pp.Add(parameter);
 
                 command.ExecuteNonQuery();
                 App.CloseConnection();

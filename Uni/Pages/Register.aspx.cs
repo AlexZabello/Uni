@@ -1,21 +1,29 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using DataLayer.Core;
-using Uni.Helpers;
-using DataLayer.Repository;
-using System.Web.Security;
-
+﻿//-----------------------------------------------------------------------
+// <copyright file="Register.aspx.cs" company="CompanyName">
+//     ---
+// </copyright>
+//-----------------------------------------------------------------------
 namespace Uni.Pages
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Web;
+    using System.Web.Security;
+    using System.Web.UI;
+    using System.Web.UI.WebControls;
+    using DataLayer.Core;
+    using DataLayer.Repository;
+    using Uni.Helpers;
+    
+    /// <summary>
+    /// Register Page
+    /// </summary>
     public partial class Register : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (IsPostBack)
+            if (Page.IsPostBack)
             {
                 App app = DataHelper.GetApp();
                 UserRepository rep = new UserRepository(app);

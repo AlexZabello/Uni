@@ -24,28 +24,28 @@ namespace DataLayer.Repository
                 SqlDataAdapter adapter = App.CreateAdapter("dbo.GroupList");
                 DataTable table = new DataTable();
                 adapter.Fill(table);
-                List<Group> gList = new List<Group>();
+                List<Group> groupCollection = new List<Group>();
                 foreach (DataRow row in table.Rows)
                 {
-                    Group g = new Group();
-                    g.GroupId = row.Field<int>("GroupId");
-                    g.Name = row.Field<string>("Name");
-                    g.Subject = new Subject
+                    Group group = new Group();
+                    group.GroupId = row.Field<int>("GroupId");
+                    group.Name = row.Field<string>("Name");
+                    group.Subject = new Subject
                     {
                         SubjectId = row.Field<int>("SubjectId"),
                         Name = row.Field<string>("SubjectName")
                     };
-                    g.Prof = new Teacher
+                    group.Prof = new Teacher
                     {
                         TeacherId = row.Field<int>("TeacherId"),
                         SubjectId = row.Field<int>("SubjectId"),
                         FirstName = row.Field<string>("PFirstName"),
                         LastName = row.Field<string>("PLastName")
                     };
-                    gList.Add(g);
+                    groupCollection.Add(group);
                 }
                 App.CloseConnection();
-                return gList;
+                return groupCollection;
             }
             catch
             {
@@ -60,20 +60,20 @@ namespace DataLayer.Repository
                 App.OpenConnection();
                 SqlCommand command = App.CreateCommand("dbo.GroupGet");
                 SqlParameterCollection pp = command.Parameters;
-                SqlParameter p = new SqlParameter("@GroupId", id);
-                pp.Add(p);
+                SqlParameter parameter = new SqlParameter("@GroupId", id);
+                pp.Add(parameter);
                 SqlDataReader reader = command.ExecuteReader();
-                Group g = new Group();
+                Group group = new Group();
                 while (reader.Read())
                 {
-                    g.GroupId = id;
-                    g.Name = reader.GetString(reader.GetOrdinal("Name"));
-                    g.SubjectId = reader.GetInt32(reader.GetOrdinal("SubjectId"));
-                    g.TeacherId = reader.GetInt32(reader.GetOrdinal("TeacherId"));
+                    group.GroupId = id;
+                    group.Name = reader.GetString(reader.GetOrdinal("Name"));
+                    group.SubjectId = reader.GetInt32(reader.GetOrdinal("SubjectId"));
+                    group.TeacherId = reader.GetInt32(reader.GetOrdinal("TeacherId"));
                 }
                 reader.Close();
                 App.CloseConnection();
-                return g;
+                return group;
             }
             catch
             {
@@ -92,12 +92,12 @@ namespace DataLayer.Repository
                 SqlParameter pId = new SqlParameter("@GroupId", SqlDbType.Int);
                 pId.Direction = ParameterDirection.InputOutput;
                 pp.Add(pId);
-                SqlParameter p = new SqlParameter("@Name", item.Name);
-                pp.Add(p);
-                p = new SqlParameter("@SubjectId", item.SubjectId);
-                pp.Add(p);
-                p = new SqlParameter("@TeacherId", item.TeacherId);
-                pp.Add(p);
+                SqlParameter parameter = new SqlParameter("@Name", item.Name);
+                pp.Add(parameter);
+                parameter = new SqlParameter("@SubjectId", item.SubjectId);
+                pp.Add(parameter);
+                parameter = new SqlParameter("@TeacherId", item.TeacherId);
+                pp.Add(parameter);
 
                 command.ExecuteNonQuery();
                 item.GroupId = Convert.ToInt32(pId.Value);
@@ -118,15 +118,15 @@ namespace DataLayer.Repository
                 SqlCommand command = App.CreateCommand("dbo.GroupUpdate");
                 SqlParameterCollection pp = command.Parameters;
 
-                SqlParameter p = new SqlParameter("@GroupId", item.GroupId);
-                p.Direction = ParameterDirection.InputOutput;
-                pp.Add(p);
-                p = new SqlParameter("@Name", item.Name);
-                pp.Add(p);
-                p = new SqlParameter("@SubjectId", item.SubjectId);
-                pp.Add(p);
-                p = new SqlParameter("@TeacherId", item.TeacherId);
-                pp.Add(p);
+                SqlParameter parameter = new SqlParameter("@GroupId", item.GroupId);
+                parameter.Direction = ParameterDirection.InputOutput;
+                pp.Add(parameter);
+                parameter = new SqlParameter("@Name", item.Name);
+                pp.Add(parameter);
+                parameter = new SqlParameter("@SubjectId", item.SubjectId);
+                pp.Add(parameter);
+                parameter = new SqlParameter("@TeacherId", item.TeacherId);
+                pp.Add(parameter);
 
                 command.ExecuteNonQuery();
                 App.CloseConnection();
@@ -164,32 +164,32 @@ namespace DataLayer.Repository
                 App.OpenConnection();
                 SqlDataAdapter adapter = App.CreateAdapter("dbo.GroupsForSubject");
                 SqlParameterCollection pp = adapter.SelectCommand.Parameters;
-                SqlParameter p = new SqlParameter("@SubjectId", subj.SubjectId);
-                pp.Add(p);
+                SqlParameter parameter = new SqlParameter("@SubjectId", subj.SubjectId);
+                pp.Add(parameter);
                 DataTable table = new DataTable();
                 adapter.Fill(table);
-                List<Group> gList = new List<Group>();
+                List<Group> groupCollection = new List<Group>();
                 foreach (DataRow row in table.Rows)
                 {
-                    Group g = new Group();
-                    g.GroupId = row.Field<int>("GroupId");
-                    g.Name = row.Field<string>("Name");
-                    g.Subject = new Subject
+                    Group group = new Group();
+                    group.GroupId = row.Field<int>("GroupId");
+                    group.Name = row.Field<string>("Name");
+                    group.Subject = new Subject
                     {
                         SubjectId = row.Field<int>("SubjectId"),
                         Name = row.Field<string>("SubjectName")
                     };
-                    g.Prof = new Teacher
+                    group.Prof = new Teacher
                     {
                         TeacherId = row.Field<int>("TeacherId"),
                         SubjectId = row.Field<int>("SubjectId"),
                         FirstName = row.Field<string>("PFirstName"),
                         LastName = row.Field<string>("PLastName")
                     };
-                    gList.Add(g);
+                    groupCollection.Add(group);
                 }
                 App.CloseConnection();
-                return gList;
+                return groupCollection;
             }
             catch
             {
@@ -204,10 +204,10 @@ namespace DataLayer.Repository
                 App.OpenConnection();
                 SqlCommand command = App.CreateCommand("RegStudInGroup");
                 SqlParameterCollection pp = command.Parameters;
-                SqlParameter p = new SqlParameter("@StudentId", stud.StudentId);
-                pp.Add(p);
-                p = new SqlParameter("@Group", group.GroupId);
-                pp.Add(p);
+                SqlParameter parameter = new SqlParameter("@StudentId", stud.StudentId);
+                pp.Add(parameter);
+                parameter = new SqlParameter("@Group", group.GroupId);
+                pp.Add(parameter);
 
                 command.ExecuteNonQuery();
             }
@@ -225,10 +225,10 @@ namespace DataLayer.Repository
                 App.OpenConnection();
                 SqlCommand command = App.CreateCommand("UnRegStudInGroup");
                 SqlParameterCollection pp = command.Parameters;
-                SqlParameter p = new SqlParameter("@StudentId", stud.StudentId);
-                pp.Add(p);
-                p = new SqlParameter("@Group", group.GroupId);
-                pp.Add(p);
+                SqlParameter parameter = new SqlParameter("@StudentId", stud.StudentId);
+                pp.Add(parameter);
+                parameter = new SqlParameter("@Group", group.GroupId);
+                pp.Add(parameter);
 
                 command.ExecuteNonQuery();
             }

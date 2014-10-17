@@ -1,54 +1,42 @@
-﻿using DataLayer.Core;
-using DataLayer.Entity;
-using DataLayer.Repository;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using Uni.Helpers;
-
+﻿//-----------------------------------------------------------------------
+// <copyright file="AssignStudent.aspx.cs" company="CompanyName">
+//     ---
+// </copyright>
+//-----------------------------------------------------------------------
 namespace Uni.Pages.Teacher
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Web;
+    using System.Web.UI;
+    using System.Web.UI.WebControls;
+    using DataLayer.Core;
+    using DataLayer.Entity;
+    using DataLayer.Repository;
+    using Uni.Helpers;
+
+    /// <summary>
+    /// Assign Student Page
+    /// </summary>
     public partial class AssignStudent : System.Web.UI.Page
     {
-        protected void Page_Load(object sender, EventArgs e)
-        {
-            if (!IsPostBack)
-            {
-
-                repeaterGroup.DataSource = GetStudentsInGroup();
-                repeaterGroup.DataBind();
-                DDLGroup.DataSource = GetGroups();
-                DDLGroup.DataBind();
-                DDLGroup.SelectedIndex = -1;
-            }
-        }
-
         public System.Collections.IEnumerable GetStudents()
         {
             App app = DataHelper.GetApp();
             StudentRepository rep = new StudentRepository(app);
             
-            return rep.GetAll().Where(p=>p.Group == null);
+            return rep.GetAll().Where(p => p.Group == null);
         }
 
         public IEnumerable<Group> GetGroups()
         {
             App app = DataHelper.GetApp();
-            TeacherRepository tRep = new TeacherRepository(app);
-            DataLayer.Entity.Teacher t = tRep.GetByUser(new DataLayer.Entity.User() { Login = User.Identity.Name });
+            TeacherRepository teacherRepository = new TeacherRepository(app);
+            DataLayer.Entity.Teacher t = teacherRepository.GetByUser(new DataLayer.Entity.User() { Login = User.Identity.Name });
             GroupRepository rep = new GroupRepository(app);
-            IEnumerable<Group> g = rep.GetAllForSubject(new Subject(){ SubjectId = t.SubjectId});
+            IEnumerable<Group> g = rep.GetAllForSubject(new Subject() { SubjectId = t.SubjectId });
             return g;
-        }
-
-        protected void DDLGroup_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            repeaterGroup.DataSource = null;
-            repeaterGroup.DataSource = GetStudentsInGroup();
-            repeaterGroup.DataBind();
         }
 
         public IEnumerable<Student> GetStudentsInGroup()
@@ -57,7 +45,7 @@ namespace Uni.Pages.Teacher
             StudentRepository rep = new StudentRepository(app);
             
             int id = 0;
-            if (DDLGroup.Items.Count >0)
+            if (DDLGroup.Items.Count > 0)
             {
                 id = Convert.ToInt32(DDLGroup.SelectedValue);
             }
@@ -65,17 +53,33 @@ namespace Uni.Pages.Teacher
             return rep.GetAll().Where(p => (p.Group != null && p.Group.GroupId == id));
         }
 
-        protected void bLeft_Click(object sender, EventArgs e)
+        protected void Page_Load(object sender, EventArgs e)
+        {
+            if (!Page.IsPostBack)
+            {
+                this.repeaterGroup.DataSource = this.GetStudentsInGroup();
+                this.repeaterGroup.DataBind();
+                this.DDLGroup.DataSource = this.GetGroups();
+                this.DDLGroup.DataBind();
+                this.DDLGroup.SelectedIndex = -1;
+            }
+        }
+
+        protected void DDLGroup_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            repeaterGroup.DataSource = null;
+            repeaterGroup.DataSource = this.GetStudentsInGroup();
+            repeaterGroup.DataBind();
+        }
+
+        protected void OnButtonLeft_Click(object sender, EventArgs e)
         {
             App app = DataHelper.GetApp();
             StudentRepository rep = new StudentRepository(app);
-            
         }
 
-        protected void bRight_Click(object sender, EventArgs e)
+        protected void OnButtonRight_Click(object sender, EventArgs e)
         {
-
         }
-
     }
 }

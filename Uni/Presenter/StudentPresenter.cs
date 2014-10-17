@@ -1,58 +1,76 @@
-﻿using DataLayer.Core;
-using DataLayer.Entity;
-using DataLayer.Repository;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using Uni.Helpers;
-using Uni.Model;
-using Uni.View;
-
+﻿//-----------------------------------------------------------------------
+// <copyright file="StudentPresenter.cs" company="CompanyName">
+//     ---
+// </copyright>
+//-----------------------------------------------------------------------
 namespace Uni.Presenter
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Web;
+    using DataLayer.Core;
+    using DataLayer.Entity;
+    using DataLayer.Repository;
+    using Uni.Helpers;
+    using Uni.Model;
+    using Uni.View;
+
+    /// <summary>
+    /// Student Presenter
+    /// </summary>
     public class StudentPresenter : Presenter<IStudentView>
     {
-        public IStudentModel StudentModel { get; set; }
-
-        public StudentPresenter(IStudentView view, IStudentModel model): base(view)
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="view">IStudentView instance</param>
+        /// <param name="model">IStudentModel instance</param>
+        public StudentPresenter(IStudentView view, IStudentModel model) : base(view)
         {
-            StudentModel = model;
+            this.StudentModel = model;
         }
+
+        /// <summary>
+        /// Gets or sets StudentModel
+        /// </summary>
+        public IStudentModel StudentModel { get; set; }
 
         public IEnumerable<Subject> GetSubjects()
         {
-            return StudentModel.GetSubjects();
+            return this.StudentModel.GetSubjects();
         }
 
         public IEnumerable<Group> GetGroup()
         {
-            return StudentModel.GetGroups();
+            return this.StudentModel.GetGroups();
         }
 
         public IEnumerable<Uni.Models.StudentViewModel> GetStudents()
         {
-            IEnumerable<DataLayer.Entity.Student> studs =
-                StudentModel.GetStudents(view.FirstName, view.LastName, view.IdSubject, view.IdGroup);
+            IEnumerable<DataLayer.Entity.Student> studentCollection =
+                this.StudentModel.GetStudents(View.FirstName, View.LastName, View.IdSubject, View.IdGroup);
 
-            List<Uni.Models.StudentViewModel> list = new List<Uni.Models.StudentViewModel>();
-            foreach (DataLayer.Entity.Student stud in studs)
+            List<Uni.Models.StudentViewModel> studentViewModelCollection = new List<Uni.Models.StudentViewModel>();
+            foreach (DataLayer.Entity.Student student in studentCollection)
             {
                 Uni.Models.StudentViewModel model = new Uni.Models.StudentViewModel();
-                model.StudentId = stud.StudentId;
-                model.FirstName = stud.FirstName;
-                model.LastName = stud.LastName;
-                model.SubjectId = stud.SubjectId;
-                model.SubjectName = stud.Subject.Name;
-                if (stud.Group != null)
+                model.StudentId = student.StudentId;
+                model.FirstName = student.FirstName;
+                model.LastName = student.LastName;
+                model.SubjectId = student.SubjectId;
+                model.SubjectName = student.Subject.Name;
+                if (student.Group != null)
                 {
-                    model.GroupId = stud.Group.GroupId;
-                    model.GroupName = stud.Group.Name;
-                    model.ProfName = string.Format("{0} {1}", stud.Group.Prof.FirstName, stud.Group.Prof.LastName);
+                    model.GroupId = student.Group.GroupId;
+                    model.GroupName = student.Group.Name;
+                    model.ProfName = string.Format("{0} {1}", student.Group.Prof.FirstName, student.Group.Prof.LastName);
                 }
-                list.Add(model);
+
+                studentViewModelCollection.Add(model);
             }
-            return list;
+            
+            return studentViewModelCollection;
         }
     }
 }

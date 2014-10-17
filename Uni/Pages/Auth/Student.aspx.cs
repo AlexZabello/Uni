@@ -1,25 +1,28 @@
-﻿using DataLayer.Core;
-using DataLayer.Repository;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using Uni.Models;
-using System.Web.ModelBinding;
-using DataLayer.Entity;
-using Uni.Helpers;
-
+﻿//-----------------------------------------------------------------------
+// <copyright file="Student.aspx.cs" company="CompanyName">
+//     ---
+// </copyright>
+//-----------------------------------------------------------------------
 namespace Uni.Pages.Admin
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Web;
+    using System.Web.ModelBinding;
+    using System.Web.UI;
+    using System.Web.UI.WebControls;
+    using DataLayer.Core;
+    using DataLayer.Entity;
+    using DataLayer.Repository;
+    using Uni.Helpers;
+    using Uni.Models;
+
+    /// <summary>
+    /// Student Page
+    /// </summary>
     public partial class Student : System.Web.UI.Page
     {
-        protected void Page_Load(object sender, EventArgs e)
-        {
-
-        }
-
         public IEnumerable<DataLayer.Entity.Student> GetStudents()
         {
             App app = Uni.Helpers.DataHelper.GetApp();
@@ -31,7 +34,7 @@ namespace Uni.Pages.Admin
         public void InsertStudent()
         {
             DataLayer.Entity.Student stud = new DataLayer.Entity.Student();
-            if (TryUpdateModel(stud))
+            if (Page.TryUpdateModel(stud))
             {
                 App app = Uni.Helpers.DataHelper.GetApp();
                 StudentRepository rep = new StudentRepository(app);
@@ -42,7 +45,7 @@ namespace Uni.Pages.Admin
         public void UpdateStudent()
         {
             DataLayer.Entity.Student stud = new DataLayer.Entity.Student();
-            if (TryUpdateModel(stud))
+            if (Page.TryUpdateModel(stud))
             {
                 App app = Uni.Helpers.DataHelper.GetApp();
                 StudentRepository rep = new StudentRepository(app);
@@ -54,7 +57,7 @@ namespace Uni.Pages.Admin
         public void DeleteStudent()
         {
             DataLayer.Entity.Student stud = new DataLayer.Entity.Student();
-            if (TryUpdateModel(stud))
+            if (Page.TryUpdateModel(stud))
             {
                 App app = Uni.Helpers.DataHelper.GetApp();
                 StudentRepository rep = new StudentRepository(app);
@@ -69,6 +72,10 @@ namespace Uni.Pages.Admin
             SubjectRepository rep = new SubjectRepository(app);
 
             return rep.GetAll();
+        }
+
+        protected void Page_Load(object sender, EventArgs e)
+        {
         }
     }
 }

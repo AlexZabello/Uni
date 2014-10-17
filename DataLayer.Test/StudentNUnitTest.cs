@@ -16,38 +16,23 @@ namespace DataLayer.Test
         [Test]
         public void CheckConstraintStudentToTeacher_Null()
         {
-            var student = Mock.Of<Student>();
-            student.Group = Mock.Of<Group>();
+            var mockStudent = Mock.Of<Student>();
+            mockStudent.Group = Mock.Of<Group>();
 
-            
-            Assert.IsNull(student.Group.Prof);
-
-            //Assert.That(student.Group.Prof, Is.Not.Null);
+            Assert.IsNull(mockStudent.Group.Prof);
         }
 
         [Test]
         public void CheckConstraintStudentToTeacher_NotNull()
         {
-            var mGroup = Mock.Of<Group>();
-            mGroup.Prof = Mock.Of<Teacher>();
-            var student = Mock.Of<Student>();
-            student.Group = mGroup;
+            var mockGroup = Mock.Of<Group>();
+            mockGroup.Prof = Mock.Of<Teacher>();
+            var mockStudent = Mock.Of<Student>();
+            mockStudent.Group = mockGroup;
 
-            Assert.IsNotNull(student.Group.Prof);
-
-
-            var gr = new Mock<Group>();
-            var t = new Mock<Teacher>();
-            var s = new Mock<Student>();
-            gr.Object.Prof = t.Object;
-            s.Object.Group = gr.Object;
-
-            Assert.IsNotNull(s.Object.Group.Prof);
-
-            //mGroup.Setup(g => g.Prof).Returns(new Teacher());
-
-            
+            Assert.IsNotNull(mockStudent.Group.Prof);
         }
+
         [Test]
         public void Check()
         {
@@ -67,46 +52,34 @@ namespace DataLayer.Test
         [Test]
         public void Check_ContantinationProfName()
         {
-            string fn = "TestFN";
-            string ln = "TestLN";
-
-            Student stud = new Student();
-            Subject subj = new Subject();
-            stud.Subject = subj;
+            string fisrtName = "TestFN";
+            string lastName = "TestLN";
+            Student student = new Student();
+            Subject subject = new Subject();
+            student.Subject = subject;
             Group group = new Group();
-            Teacher teacher = new Teacher() { FirstName = fn, LastName = ln };
-            stud.Group = group;
+            Teacher teacher = new Teacher() 
+            { 
+                FirstName = fisrtName, 
+                LastName = lastName 
+            };
+            student.Group = group;
             group.Prof = teacher;
-
-            List<Student> listSt = new List<Student>();
-            listSt.Add(stud);
-
-            var view = Mock.Of<IStudentView>(v => v.FirstName == "1" &&
+            List<Student> studentCollection = new List<Student>();
+            studentCollection.Add(student);
+            var mockView = Mock.Of<IStudentView>(v => v.FirstName == "1" &&
                                             v.LastName == "1" &&
                                             v.IdGroup == 1 &&
                                             v.IdSubject == 1);
-
-            var mStudentModel = new Mock<IStudentModel>();
-            mStudentModel.Setup(s => s.GetStudents(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<int>(), It.IsAny<int>())).Returns(listSt);
-
-            var mPresenter = new Mock<StudentPresenter>(view, mStudentModel.Object);
-            //var mStudRepository = new Mock<IStudentRepository>();
-            //mStudRepository.Setup(ms => ms.SearchStudent(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<int>(), It.IsAny<int>())).Returns(listSt);
+            var mockStudentModel = new Mock<IStudentModel>();
+            mockStudentModel.Setup(s => s.GetStudents(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<int>(), It.IsAny<int>())).Returns(studentCollection);
+            var mockPresenter = new Mock<StudentPresenter>(mockView, mockStudentModel.Object);
+            mockPresenter.Object.StudentModel = mockStudentModel.Object;
             
-            //IStudentRepository repos = mStudRepository.Object;
-
-            //var result = repos.SearchStudent("1","1",1,1);
-
-            mPresenter.Object.StudentModel = mStudentModel.Object;
-
-            List<Uni.Models.StudentViewModel> coll = mPresenter.Object.GetStudents() as List<Uni.Models.StudentViewModel>;
-
-            //var result2 = mPresenter.Object.SearchStudent("1", "1", 1, 1);
-
-            //Assert.AreEqual(result, listSt);
-            Assert.AreEqual((coll as List<Uni.Models.StudentViewModel>).Count, 1);
+            List<Uni.Models.StudentViewModel> studentViewModelCollection = mockPresenter.Object.GetStudents() as List<Uni.Models.StudentViewModel>;
             
-            Assert.AreEqual(coll[0].ProfName, string.Format("{0} {1}", fn, ln));
+            Assert.AreEqual((studentViewModelCollection as List<Uni.Models.StudentViewModel>).Count, 1);
+            Assert.AreEqual(studentViewModelCollection[0].ProfName, string.Format("{0} {1}", fisrtName, lastName));
         }
     }
 }

@@ -25,22 +25,22 @@ namespace DataLayer.Repository
                 SqlDataAdapter adapter = App.CreateAdapter("dbo.UsersList");
                 DataTable table = new DataTable();
                 adapter.Fill(table);
-                List<User> uList = new List<User>();
+                List<User> userCollection = new List<User>();
                 foreach (DataRow row in table.Rows)
                 {
-                    User u = new User();
-                    u.UserId = row.Field<int>("UserId");
-                    u.Login = row.Field<string>("Login");
-                    u.UserRoleId = row.Field<int?>("UserRoleId");
-                    if (u.UserRole != null)
+                    User user = new User();
+                    user.UserId = row.Field<int>("UserId");
+                    user.Login = row.Field<string>("Login");
+                    user.UserRoleId = row.Field<int?>("UserRoleId");
+                    if (user.UserRole != null)
                     {
-                        u.UserRole.Name = row.Field<string>("UserRoleName");
+                        user.UserRole.Name = row.Field<string>("UserRoleName");
                     }
                     
-                    uList.Add(u);
+                    userCollection.Add(user);
                 }
                 App.CloseConnection();
-                return uList;
+                return userCollection;
             }
             catch
             {
@@ -55,19 +55,19 @@ namespace DataLayer.Repository
                 App.OpenConnection();
                 SqlCommand command = App.CreateCommand("dbo.UserGet");
                 SqlParameterCollection pp = command.Parameters;
-                SqlParameter p = new SqlParameter("@UserId", id);
-                pp.Add(p);
+                SqlParameter sqlParameter = new SqlParameter("@UserId", id);
+                pp.Add(sqlParameter);
                 SqlDataReader reader = command.ExecuteReader();
-                User u = new User();
+                User user = new User();
                 while (reader.Read())
                 {
-                    u.UserId = id;
-                    u.Login = reader.GetString(reader.GetOrdinal("Login"));
-                    u.UserRoleId = reader.GetInt32(reader.GetOrdinal("UserRoleId"));
+                    user.UserId = id;
+                    user.Login = reader.GetString(reader.GetOrdinal("Login"));
+                    user.UserRoleId = reader.GetInt32(reader.GetOrdinal("UserRoleId"));
                 }
                 reader.Close();
                 App.CloseConnection();
-                return u;
+                return user;
             }
             catch
             {
@@ -86,10 +86,10 @@ namespace DataLayer.Repository
                 SqlParameter pId = new SqlParameter("@UserId", SqlDbType.Int);
                 pId.Direction = ParameterDirection.InputOutput;
                 pp.Add(pId);
-                SqlParameter p = new SqlParameter("@Login", item.Login);
-                pp.Add(p);
-                p = new SqlParameter("@Password", item.Password);
-                pp.Add(p);
+                SqlParameter sqlParameter = new SqlParameter("@Login", item.Login);
+                pp.Add(sqlParameter);
+                sqlParameter = new SqlParameter("@Password", item.Password);
+                pp.Add(sqlParameter);
 
                 command.ExecuteNonQuery();
                 item.UserId = Convert.ToInt32(pId.Value);
@@ -110,18 +110,17 @@ namespace DataLayer.Repository
                 SqlCommand command = App.CreateCommand("dbo.UserUpdate");
                 SqlParameterCollection pp = command.Parameters;
 
-                SqlParameter p = new SqlParameter("@UserId", item.UserId);
-                p.Direction = ParameterDirection.InputOutput;
-                pp.Add(p);
-                p = new SqlParameter("@Login", item.Login);
-                pp.Add(p);
+                SqlParameter sqlParameter = new SqlParameter("@UserId", item.UserId);
+                sqlParameter.Direction = ParameterDirection.InputOutput;
+                pp.Add(sqlParameter);
+                sqlParameter = new SqlParameter("@Login", item.Login);
+                pp.Add(sqlParameter);
                 if (item.UserRoleId != null && item.UserRoleId > 0)
                 {
-                    p = new SqlParameter("@UserRoleId", item.UserRoleId);
-                    pp.Add(p);
+                    sqlParameter = new SqlParameter("@UserRoleId", item.UserRoleId);
+                    pp.Add(sqlParameter);
                 }
                 
-
                 command.ExecuteNonQuery();
                 App.CloseConnection();
             }
@@ -144,10 +143,10 @@ namespace DataLayer.Repository
                 App.OpenConnection();
                 SqlCommand command = App.CreateCommand("dbo.UserCheck");
                 SqlParameterCollection pp = command.Parameters;
-                SqlParameter p = new SqlParameter("@Login", item.Login);
-                pp.Add(p);
-                p = new SqlParameter("@Password", item.Password);
-                pp.Add(p);
+                SqlParameter sqlParameter = new SqlParameter("@Login", item.Login);
+                pp.Add(sqlParameter);
+                sqlParameter = new SqlParameter("@Password", item.Password);
+                pp.Add(sqlParameter);
                 SqlParameter pId = new SqlParameter("@UserId", item.UserId);
                 pId.Direction = ParameterDirection.Output;
                 pp.Add(pId);
@@ -166,7 +165,6 @@ namespace DataLayer.Repository
                     item.UserRoleId = Convert.ToInt32(pIdRole.Value);
                 }
 
-
                 return true;
             }
             catch (Exception ex)
@@ -183,19 +181,19 @@ namespace DataLayer.Repository
                 App.OpenConnection();
                 SqlCommand command = App.CreateCommand("dbo.UserRoleGet");
                 SqlParameterCollection pp = command.Parameters;
-                SqlParameter p = new SqlParameter("@Login", item.Login);
-                pp.Add(p);
+                SqlParameter sqlParameter = new SqlParameter("@Login", item.Login);
+                pp.Add(sqlParameter);
                 SqlDataReader reader = command.ExecuteReader();
-                UserRole u = new UserRole();
-                u.Name = "";
+                UserRole userRole = new UserRole();
+                userRole.Name = "";
                 while (reader.Read())
                 {
-                    u.UserRoleId = reader.GetInt32(reader.GetOrdinal("UserRoleId"));
-                    u.Name = reader.GetString(reader.GetOrdinal("Name"));
+                    userRole.UserRoleId = reader.GetInt32(reader.GetOrdinal("UserRoleId"));
+                    userRole.Name = reader.GetString(reader.GetOrdinal("Name"));
                 }
                 reader.Close();
                 App.CloseConnection();
-                return u;
+                return userRole;
                 
             }
             catch
@@ -212,16 +210,16 @@ namespace DataLayer.Repository
                 SqlDataAdapter adapter = App.CreateAdapter("dbo.UserRoleList");
                 DataTable table = new DataTable();
                 adapter.Fill(table);
-                List<UserRole> uList = new List<UserRole>();
+                List<UserRole> userRoleCollection = new List<UserRole>();
                 foreach (DataRow row in table.Rows)
                 {
-                    UserRole u = new UserRole();
-                    u.UserRoleId = row.Field<int>("UserRoleId");
-                    u.Name = row.Field<string>("Name");
-                    uList.Add(u);
+                    UserRole userRole = new UserRole();
+                    userRole.UserRoleId = row.Field<int>("UserRoleId");
+                    userRole.Name = row.Field<string>("Name");
+                    userRoleCollection.Add(userRole);
                 }
                 App.CloseConnection();
-                return uList;
+                return userRoleCollection;
             }
             catch
             {

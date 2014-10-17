@@ -1,49 +1,55 @@
-﻿using DataLayer.Core;
-using DataLayer.Entity;
-using DataLayer.Repository;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using Uni.Helpers;
-using Uni.Models;
-
+﻿//-----------------------------------------------------------------------
+// <copyright file="Groups.aspx.cs" company="CompanyName">
+//     ---
+// </copyright>
+//-----------------------------------------------------------------------
 namespace Uni.Pages
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Web;
+    using System.Web.UI;
+    using System.Web.UI.WebControls;
+    using DataLayer.Core;
+    using DataLayer.Entity;
+    using DataLayer.Repository;
+    using Uni.Helpers;
+    using Uni.Models;
+    
+    /// <summary>
+    /// Groups Page
+    /// </summary>
     public partial class Groups : System.Web.UI.Page
     {
-        protected void Page_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        public IEnumerable<Uni.Models.GroupModel> GetGroups()
+        public IEnumerable<Uni.Models.GroupViewModel> GetGroups()
         {
             App app = DataHelper.GetApp();
-            GroupRepository rep = new GroupRepository(app);
+            GroupRepository groupRepository = new GroupRepository(app);
             
+            IEnumerable<Group> groups = groupRepository.GetAll();
 
-            IEnumerable<Group> groups = rep.GetAll();
-
-            List<GroupModel> list = new List<GroupModel>();
-            foreach (Group gr in groups)
+            List<GroupViewModel> list = new List<GroupViewModel>();
+            foreach (Group group in groups)
             {
-                GroupModel model = new GroupModel();
-                model.GroupId = gr.GroupId;
-                model.Name = gr.Name;
-                model.ProfName = string.Format("{0} {1}", gr.Prof.FirstName, gr.Prof.LastName);
-                model.SubjectName = gr.Subject.Name;
-
+                GroupViewModel model = new GroupViewModel();
+                model.GroupId = group.GroupId;
+                model.Name = group.Name;
+                model.ProfName = string.Format("{0} {1}", group.Prof.FirstName, group.Prof.LastName);
+                model.SubjectName = group.Subject.Name;
                 list.Add(model);
             }
+
             return list;
         }
 
         public int GroupCount()
         {
-            return Repeater1.Items.Count;
+            return this.Repeater1.Items.Count;
+        }
+
+        protected void Page_Load(object sender, EventArgs e)
+        {
         }
     }
 }

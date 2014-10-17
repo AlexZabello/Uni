@@ -1,13 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Routing;
-
+﻿//-----------------------------------------------------------------------
+// <copyright file="RouteConfig.cs" company="CompanyName">
+//     ---
+// </copyright>
+//-----------------------------------------------------------------------
 namespace Uni.App_Start
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Web;
+    using System.Web.Routing;
+
+    /// <summary>
+    /// Route config
+    /// </summary>
     public class RouteConfig
     {
+        /// <summary>
+        /// Register routes into route collection
+        /// </summary>
+        /// <param name="routes">route collection</param>
         public static void RegisterRoutes(RouteCollection routes)
         {
             routes.MapPageRoute("admin", "admin", "~/Pages/Auth/Student.aspx", true);
@@ -17,7 +29,7 @@ namespace Uni.App_Start
             routes.MapPageRoute("auth", "auth", "~/Pages/Default.aspx", true);
             routes.MapPageRoute("register", "register", "~/Pages/Register.aspx");
             routes.MapPageRoute("manageUsers", "manageUsers", "~/Pages/Auth/ManageUsers.aspx", true);
-            //routes.MapPageRoute(null, "admin/student", "~/Pages/Admin/Student.aspx");
+            ////routes.MapPageRoute(null, "admin/student", "~/Pages/Admin/Student.aspx");
         }
     }
 }

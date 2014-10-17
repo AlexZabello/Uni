@@ -29,9 +29,9 @@
                 </asp:DropDownList></td>
             <td></td>
             <td>
-                <asp:Button ID="bSearch" runat="server" Text="Search" OnClick="bSearch_Click" /></td>
+                <asp:Button ID="bSearch" runat="server" Text="Search" OnClick="OnButtonSearch_Click" /></td>
         </tr>
-            <asp:Repeater ID="Repeater1" ItemType="Uni.Models.Student" runat="server">
+            <asp:Repeater ID="Repeater1" ItemType="Uni.Models.StudentViewModel" runat="server">
                 <ItemTemplate>
                     <tr>
                         <td><%# Item.FirstName %></td>
@@ -42,12 +42,12 @@
                     </tr>
                 </ItemTemplate>
             </asp:Repeater>
-               
+          </table>     
         </ContentTemplate>
         <Triggers>
             <asp:AsyncPostBackTrigger ControlID="bSearch" EventName="Click" />
         </Triggers>
     </asp:UpdatePanel>
-        </table>
+        
     
 </asp:Content>

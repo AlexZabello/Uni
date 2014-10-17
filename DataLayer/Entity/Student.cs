@@ -9,7 +9,9 @@ namespace DataLayer.Entity
     public class Student : IItem
     {
         public int StudentId { get; set; }
+        
         public string FirstName { get; set; }
+        
         public string LastName { get; set; }
 
         public int SubjectId

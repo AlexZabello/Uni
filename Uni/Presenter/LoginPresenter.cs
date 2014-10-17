@@ -1,22 +1,34 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using Uni.Model;
-using Uni.View;
-
+﻿//-----------------------------------------------------------------------
+// <copyright file="LoginPresenter.cs" company="CompanyName">
+//     ---
+// </copyright>
+//-----------------------------------------------------------------------
 namespace Uni.Presenter
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Web;
+    using Uni.Model;
+    using Uni.View;
+
+    /// <summary>
+    /// Implementation Presenter for Login View
+    /// </summary>
     public class LoginPresenter : Presenter<ILoginView>
     {
-        public LoginPresenter(ILoginView view): base(view)
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="view">ILoginView instance</param>
+        public LoginPresenter(ILoginView view) : base(view)
         {    
         }
 
         public bool Login()
         {
             LoginModel model = new LoginModel();
-            return model.Login(view.LoginName, view.Password);
+            return model.Login(View.LoginName, View.Password);
         }
     }
 }

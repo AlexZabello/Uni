@@ -1,14 +1,22 @@
-﻿using DataLayer.Core;
-using DataLayer.Entity;
-using DataLayer.Repository;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using Uni.Helpers;
-
+﻿//-----------------------------------------------------------------------
+// <copyright file="LoginModel.cs" company="CompanyName">
+//     ---
+// </copyright>
+//-----------------------------------------------------------------------
 namespace Uni.Model
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Web;
+    using DataLayer.Core;
+    using DataLayer.Entity;
+    using DataLayer.Repository;
+    using Uni.Helpers;
+
+    /// <summary>
+    /// Login model
+    /// </summary>
     public class LoginModel : ILoginModel
     {
         public bool Login(string login, string pass)
@@ -20,6 +28,7 @@ namespace Uni.Model
             {
                 return true;
             }
+
             return false;
         }
     }
