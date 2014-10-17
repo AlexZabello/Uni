@@ -22,7 +22,7 @@ namespace Uni.Pages
         {
             if (!IsPostBack)
             {
-                presenter = new StudentPresenter(this);
+                presenter = new StudentPresenter(this, new Uni.Model.StudentModel());
 
                 Repeater1.DataSource = presenter.GetStudents();
                 Repeater1.DataBind();
@@ -41,7 +41,7 @@ namespace Uni.Pages
 
         protected void bSearch_Click(object sender, EventArgs e)
         {
-            presenter = new StudentPresenter(this);
+            presenter = new StudentPresenter(this, new Uni.Model.StudentModel());
             Repeater1.DataSource = null;
             Repeater1.DataSource = presenter.GetStudents();
             Repeater1.DataBind();

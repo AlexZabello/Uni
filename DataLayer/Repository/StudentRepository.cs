@@ -11,7 +11,7 @@ using System.Linq.Expressions;
 
 namespace DataLayer.Repository
 {
-    public class StudentRepository : Repository<Student> 
+    public class StudentRepository : Repository<Student> , IStudentRepository
     {
         public StudentRepository(App app): base(app)
         {

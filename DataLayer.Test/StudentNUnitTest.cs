@@ -6,6 +6,7 @@ using DataLayer.Repository;
 using Uni.Presenter;
 using System.Collections.Generic;
 using Uni.View;
+using Uni.Model;
 
 namespace DataLayer.Test
 {
@@ -61,6 +62,51 @@ namespace DataLayer.Test
             ////Assert.AreEqual(, 2);
             //Assert.AreEqual(list.Count, 0);
 
+        }
+
+        [Test]
+        public void Check_ContantinationProfName()
+        {
+            string fn = "TestFN";
+            string ln = "TestLN";
+
+            Student stud = new Student();
+            Subject subj = new Subject();
+            stud.Subject = subj;
+            Group group = new Group();
+            Teacher teacher = new Teacher() { FirstName = fn, LastName = ln };
+            stud.Group = group;
+            group.Prof = teacher;
+
+            List<Student> listSt = new List<Student>();
+            listSt.Add(stud);
+
+            var view = Mock.Of<IStudentView>(v => v.FirstName == "1" &&
+                                            v.LastName == "1" &&
+                                            v.IdGroup == 1 &&
+                                            v.IdSubject == 1);
+
+            var mStudentModel = new Mock<IStudentModel>();
+            mStudentModel.Setup(s => s.GetStudents(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<int>(), It.IsAny<int>())).Returns(listSt);
+
+            var mPresenter = new Mock<StudentPresenter>(view, mStudentModel.Object);
+            //var mStudRepository = new Mock<IStudentRepository>();
+            //mStudRepository.Setup(ms => ms.SearchStudent(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<int>(), It.IsAny<int>())).Returns(listSt);
+            
+            //IStudentRepository repos = mStudRepository.Object;
+
+            //var result = repos.SearchStudent("1","1",1,1);
+
+            mPresenter.Object.StudentModel = mStudentModel.Object;
+
+            List<Uni.Models.StudentViewModel> coll = mPresenter.Object.GetStudents() as List<Uni.Models.StudentViewModel>;
+
+            //var result2 = mPresenter.Object.SearchStudent("1", "1", 1, 1);
+
+            //Assert.AreEqual(result, listSt);
+            Assert.AreEqual((coll as List<Uni.Models.StudentViewModel>).Count, 1);
+            
+            Assert.AreEqual(coll[0].ProfName, string.Format("{0} {1}", fn, ln));
         }
     }
 }

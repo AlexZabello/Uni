@@ -6,40 +6,39 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using Uni.Helpers;
+using Uni.Model;
 using Uni.View;
 
 namespace Uni.Presenter
 {
     public class StudentPresenter : Presenter<IStudentView>
     {
-        public StudentPresenter(IStudentView view): base(view)
+        public IStudentModel StudentModel { get; set; }
+
+        public StudentPresenter(IStudentView view, IStudentModel model): base(view)
         {
+            StudentModel = model;
         }
 
         public IEnumerable<Subject> GetSubjects()
         {
-            SubjectRepository rep = new SubjectRepository(DataHelper.GetApp());
-            return rep.GetAll();
+            return StudentModel.GetSubjects();
         }
 
         public IEnumerable<Group> GetGroup()
         {
-            GroupRepository rep = new GroupRepository(DataHelper.GetApp());
-
-            return rep.GetAll();
+            return StudentModel.GetGroups();
         }
 
-        public IEnumerable<Uni.Models.Student> GetStudents()
+        public IEnumerable<Uni.Models.StudentViewModel> GetStudents()
         {
-            StudentRepository rep = new StudentRepository(DataHelper.GetApp());
+            IEnumerable<DataLayer.Entity.Student> studs =
+                StudentModel.GetStudents(view.FirstName, view.LastName, view.IdSubject, view.IdGroup);
 
-            IEnumerable<DataLayer.Entity.Student> studs = 
-                rep.SearchStudent(view.FirstName, view.LastName, view.IdSubject, view.IdGroup);
-
-            List<Uni.Models.Student> list = new List<Uni.Models.Student>();
+            List<Uni.Models.StudentViewModel> list = new List<Uni.Models.StudentViewModel>();
             foreach (DataLayer.Entity.Student stud in studs)
             {
-                Uni.Models.Student model = new Uni.Models.Student();
+                Uni.Models.StudentViewModel model = new Uni.Models.StudentViewModel();
                 model.StudentId = stud.StudentId;
                 model.FirstName = stud.FirstName;
                 model.LastName = stud.LastName;

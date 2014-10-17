@@ -1,0 +1,9 @@
+D:\Projects\Training\ASP.NET\Uni\TestDebugger\obj\Debug\TestDebugger.csprojResolveAssemblyReference.cache
+D:\Projects\Training\ASP.NET\Uni\TestDebugger\bin\Debug\TestDebugger.exe
+D:\Projects\Training\ASP.NET\Uni\TestDebugger\bin\Debug\TestDebugger.pdb
+D:\Projects\Training\ASP.NET\Uni\TestDebugger\bin\Debug\nunit-console-runner.dll
+D:\Projects\Training\ASP.NET\Uni\TestDebugger\bin\Debug\nunit.core.dll
+D:\Projects\Training\ASP.NET\Uni\TestDebugger\bin\Debug\nunit.util.dll
+D:\Projects\Training\ASP.NET\Uni\TestDebugger\bin\Debug\nunit.core.interfaces.dll
+D:\Projects\Training\ASP.NET\Uni\TestDebugger\obj\Debug\TestDebugger.exe
+D:\Projects\Training\ASP.NET\Uni\TestDebugger\obj\Debug\TestDebugger.pdb

@@ -1,17 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8" standalone="no"?>
 <!--This file represents the results of running a test suite-->
-<test-results name="D:\Projects\Training\ASP.NET\Uni\DataLayer.Test\bin\Debug\DataLayer.Test.dll" total="1" errors="0" failures="0" not-run="0" inconclusive="0" ignored="0" skipped="0" invalid="0" date="2014-10-16" time="18:35:47">
+<test-results name="D:\Projects\Training\ASP.NET\Uni\DataLayer.Test\bin\Debug\DataLayer.Test.dll" total="1" errors="0" failures="0" not-run="0" inconclusive="0" ignored="0" skipped="0" invalid="0" date="2014-10-17" time="14:02:42">
   <environment nunit-version="2.6.3.13283" clr-version="2.0.50727.5485" os-version="Microsoft Windows NT 6.1.7601 Service Pack 1" platform="Win32NT" cwd="C:\Program Files (x86)\NUnit 2.6.3\bin" machine-name="ZABELLOA7" user="AlexeyZabello" user-domain="BY-MINSK" />
   <culture-info current-culture="en-US" current-uiculture="en-US" />
-  <test-suite type="Assembly" name="D:\Projects\Training\ASP.NET\Uni\DataLayer.Test\bin\Debug\DataLayer.Test.dll" executed="True" result="Success" success="True" time="0.449" asserts="0">
+  <test-suite type="Assembly" name="D:\Projects\Training\ASP.NET\Uni\DataLayer.Test\bin\Debug\DataLayer.Test.dll" executed="True" result="Success" success="True" time="0.698" asserts="0">
     <results>
-      <test-suite type="Namespace" name="DataLayer" executed="True" result="Success" success="True" time="0.435" asserts="0">
+      <test-suite type="Namespace" name="DataLayer" executed="True" result="Success" success="True" time="0.683" asserts="0">
         <results>
-          <test-suite type="Namespace" name="Test" executed="True" result="Success" success="True" time="0.435" asserts="0">
+          <test-suite type="Namespace" name="Test" executed="True" result="Success" success="True" time="0.683" asserts="0">
             <results>
-              <test-suite type="TestFixture" name="StudentNUnitTest" executed="True" result="Success" success="True" time="0.433" asserts="0">
+              <test-suite type="TestFixture" name="StudentNUnitTest" executed="True" result="Success" success="True" time="0.681" asserts="0">
                 <results>
-                  <test-case name="DataLayer.Test.StudentNUnitTest.CheckConstraintStudentToTeacher_NotNull" executed="True" result="Success" success="True" time="0.423" asserts="2" />
+                  <test-case name="DataLayer.Test.StudentNUnitTest.Check_ContantinationProfName" executed="True" result="Success" success="True" time="0.671" asserts="2" />
                 </results>
               </test-suite>
             </results>

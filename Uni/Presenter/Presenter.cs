@@ -10,6 +10,14 @@ namespace Uni.Presenter
     {
         protected T view;
 
+        public T View
+        {
+            get
+            {
+                return view;
+            }
+        }
+
         public Presenter(T view)
         {
             this.view = view;
